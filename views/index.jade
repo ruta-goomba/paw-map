@@ -4,5 +4,6 @@ block content
   h1= title
   p Welcome to #{title}
   ul
-    li= crime_categories
+    each val in crime_categories
+      li= val
   +a-btn-primary("/users") Next Page
