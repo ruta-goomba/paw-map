@@ -6,4 +6,7 @@ block content
   ul
     each val, index in crime_categories
       li= val + ': ' + no_of_crimes_in_category[index]
-  +a-btn-primary("/users") Next Page
+  #map
+  script.
+    #{init_map}
+  script(src=map_endpoint, async, defer)    
