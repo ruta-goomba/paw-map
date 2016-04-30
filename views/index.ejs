@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+  </head>
+  <body>
+    <h1> <%= title %> </h1>
+    <p><%= title %> rocks </p>
+    <div class="ct-chart ct-perfect-fourth"></div>
+    <div id="map"></div>
+    <script>
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+          center: {lat: 52.629729, lng: -1.131592},
+          zoom: 16
+        });
+      } 
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+    <script>
+      var data = {
+        labels:  <%-JSON.stringify(crime_categories)%>,
+        series: [<%= no_of_crimes_in_category %>]        
+      };
+
+      var options = {
+        labelInterpolationFnc: function(value) {
+          return value[0]
+        }
+      };
+
+      var responsiveOptions = [
+        ['screen and (min-width: 640px)', {
+          chartPadding: 30,
+          labelOffset: 100,
+          labelDirection: 'explode',
+          labelInterpolationFnc: function(value) {
+            return value;
+          }
+        }],
+        ['screen and (min-width: 1024px)', {
+          labelOffset: 80,
+          chartPadding: 20
+        }]
+      ];
+      new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
+    </script>
+  </body>
+</html>
+

@@ -10,6 +10,7 @@ var lat = '52.629729';
 var date;
 var crime_categories = [];
 var no_of_crimes_in_category = [];
+var chart_data;
 
 var work = [query_police_api, set_google_maps_api_endpoint];
 // get crime data from uk police api
@@ -36,14 +37,8 @@ function query_police_api(callback) {
   request('https://data.police.uk/api/crimes-street/all-crime?lat='+lat+'&'+'lng='+lng, police_api_callback)
   callback(null);
 }
+
 // get a map from google maps api
-var map;
-var init_map = function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 52.629729, lng: -1.131592},
-    zoom: 16
-  });
-}
 var key_file_path = path.join(__dirname, 'gmaps_api_browser_key');
 var key;
 var map_endpoint;
@@ -69,8 +64,13 @@ async.series(work, done);
 function done(err) {
   if (err) throw err;
   router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Paw Map', crime_categories: crime_categories, no_of_crimes_in_category: no_of_crimes_in_category, init_map: init_map, map_endpoint: map_endpoint });
-  });
+    res.render('index', { 
+         title: 'Paw Map', 
+         crime_categories: crime_categories, 
+         no_of_crimes_in_category: no_of_crimes_in_category,
+         map_endpoint: map_endpoint 
+    });
+  })
 }
 
 
