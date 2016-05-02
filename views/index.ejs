@@ -10,11 +10,59 @@
     <div id="map"></div>
     <script>
     function initMap() {
-        var mapDiv = document.getElementById('map');
+        /*var mapDiv = document.getElementById('map');
         var map = new google.maps.Map(mapDiv, {
           center: {lat: 52.629729, lng: -1.131592},
           zoom: 16
-        });
+        });*/
+        
+        var myLatlng = new google.maps.LatLng(52.629729, -1.131592);
+        // map options,
+        var myOptions = {
+          zoom: 8,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          disableDefaultUI: false,
+          scrollwheel: true,
+          draggable: true,
+          navigationControl: true,
+          mapTypeControl: false,
+          scaleControl: true,
+          disableDoubleClickZoom: false
+        };
+        // standard map
+        //document.getElementById("map")
+        var map = new google.maps.Map($("#map")[0], myOptions);
+
+        var heatmap = new HeatmapOverlay(map, 
+          {
+            "radius": 3,
+            "maxOpacity": 1, 
+            "scaleRadius": true, 
+            "useLocalExtrema": true,
+            latField: 'lat',
+            lngField: 'lng',
+            valueField: 'count'
+          }
+        );
+
+        var testData = {
+          max: 100,
+          data: [{
+            lat: 52.629729, 
+            lng:-1.141592, 
+            count: 100
+          },{
+            lat: 52.629729, 
+            lng:-1.131592, 
+            count: 100
+          }]
+        };
+
+        //google.maps.event.addListenerOnce(map, "idle", function(){
+          // this is important, because if you set the data set too early, the     latlng/pixel projection doesn't work
+          heatmap.setDataSet(testData);
+        //});
       } 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
