@@ -46,7 +46,7 @@ var map_endpoint;
 var key_query_callback = function(err, data) {
   if (err) {throw err};
   key = data;
-  map_endpoint = 'https://maps.googleapis.com/maps/api/js?key='+key+'&callback=initMap';
+  map_endpoint = 'https://maps.googleapis.com/maps/api/js?key='+key+'&libraries=visualization&callback=initMap';
 }
 
 
@@ -68,7 +68,7 @@ function done(err) {
          title: 'Paw Map', 
          crime_categories: crime_categories, 
          no_of_crimes_in_category: no_of_crimes_in_category,
-         map_endpoint: map_endpoint 
+         map_endpoint: map_endpoint
     });
   })
 }
