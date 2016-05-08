@@ -11,25 +11,18 @@
     <script>
     var map, heatmap;
     function initMap() {
-      var heatMapData = [
-        {location: new google.maps.LatLng(52.629729, -1.131592), weight: 10.5},
-        {location: new google.maps.LatLng(52.829729, -1.131592), weight: 20},
-        {location: new google.maps.LatLng(52.929729, -1.131592), weight: 30},
-        {location: new google.maps.LatLng(53.029729, -1.131592), weight: 20},
-        {location: new google.maps.LatLng(53.229729, -1.131592), weight: 10.5},
-        {location: new google.maps.LatLng(53.329729, -1.131592), weight: 30},
-        {location: new google.maps.LatLng(53.429729, -1.131592), weight: 20},
-        {location: new google.maps.LatLng(53.629729, -1.131592), weight: 10.5},
-        {location: new google.maps.LatLng(53.829729, -1.131592), weight: 20},
-        {location: new google.maps.LatLng(53.929729, -1.131592), weight: 30}
-      ];
+      var heatMapData = <%- violent_crime_heatmap_data %>;
+
+      for (var i=0; i< heatMapData.length; i++){
+        heatMapData[i].location = new google.maps.LatLng(heatMapData[i].location[1], heatMapData[i].location[0]);
+      }
 
       var leicester = new google.maps.LatLng(52.629729, -1.131592);
 
       var mapDiv = document.getElementById('map');
         map = new google.maps.Map(mapDiv, {
         center: leicester,
-        zoom: 8
+        zoom: 6
       });
 
       heatmap = new google.maps.visualization.HeatmapLayer({

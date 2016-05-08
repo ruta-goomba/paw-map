@@ -12,7 +12,8 @@ var crime_categories = [];
 var no_of_crimes_in_category = [];
 var chart_data;
 
-var work = [query_police_api, set_google_maps_api_endpoint];
+var work = [query_police_api, read_in_heatmap_data, set_google_maps_api_endpoint];
+
 // get crime data from uk police api
 
 var police_api_callback = function (error, response, body) {
@@ -35,6 +36,20 @@ var police_api_callback = function (error, response, body) {
 
 function query_police_api(callback) {
   request('https://data.police.uk/api/crimes-street/all-crime?lat='+lat+'&'+'lng='+lng, police_api_callback)
+  callback(null);
+}
+
+// read in heat map data
+var violent_crime_heatmap_file_path = path.resolve('world_borders/crime_categories/violent_crime', 'violent_crime_heatmap.json');
+var violent_crime_heatmap_data;
+var heatmap_file_callback = function(err, data) {
+  if (err) {throw err};
+    violent_crime_heatmap_data = data;
+}
+
+
+function read_in_heatmap_data(callback) {
+  fs.readFile(violent_crime_heatmap_file_path, 'UTF8', heatmap_file_callback);
   callback(null);
 }
 
@@ -68,7 +83,8 @@ function done(err) {
          title: 'Paw Map', 
          crime_categories: crime_categories, 
          no_of_crimes_in_category: no_of_crimes_in_category,
-         map_endpoint: map_endpoint
+         map_endpoint: map_endpoint,
+         violent_crime_heatmap_data: violent_crime_heatmap_data
     });
   })
 }

@@ -39,7 +39,6 @@ var counter=0;
       if (err) {
         console.log('failed to process');
       } else {
-        //fs.writeFileSync(path.join(__dirname,'uk_crimes_grid_2016_01.json'), JSON.stringify(uk_crimes_grid_2016_01, null, 2) , 'utf-8');
         console.log('created crimes grid files');
       }
     });
