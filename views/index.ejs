@@ -10,6 +10,7 @@
     <form onsubmit="return false;">
       <input type="radio" name="heatmap_choice" value="violent-crime"> Violent Crime </br>
       <input type="radio" name="heatmap_choice" value="anti-social-behaviour"> Anti-social behaviour </br>
+      <input type="radio" name="heatmap_choice" value="vehicle-crime"> Vehicle Crime </br>
       <button type="button" onclick="set_heat_map_data()">Submit</button>
     </form> 
     <div id="map"></div>
@@ -25,6 +26,9 @@
             initMap();
           } else if (heatmap_choice_radios[i].value === 'anti-social-behaviour'){
             heatMapData = <%- anti_social_behaviour_heatmap_data %>;
+            initMap();
+          } else if (heatmap_choice_radios[i].value === 'vehicle-crime'){
+            heatMapData = <%- vehicle_crime_heatmap_data %>;
             initMap();
           }
         }

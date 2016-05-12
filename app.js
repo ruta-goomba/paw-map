@@ -8,11 +8,17 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+//var reactViews = require('express-react-views');
+
 var app = express();
 
 // view engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+// app significantly slower to load with react :(
+/*app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jsx');
+app.engine('jsx', reactViews.createEngine());*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

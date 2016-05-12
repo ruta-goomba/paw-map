@@ -42,8 +42,11 @@ function query_police_api(callback) {
 // read in heat map data
 var violent_crime_heatmap_file_path = path.resolve('world_borders/crime_categories/violent_crime', 'violent_crime_heatmap.json');
 var anti_social_behaviour_heatmap_file_path = path.resolve('world_borders/crime_categories/anti_social_behaviour', 'anti_social_behaviour_heatmap.json');
+var vehicle_crime_heatmap_file_path = path.resolve('world_borders/crime_categories/vehicle_crime', 'vehicle_crime_heatmap.json');
+
 var violent_crime_heatmap_data;
 var anti_social_behaviour_heatmap_data;
+var vehicle_crime_heatmap_data;
 
 var violent_crime_heatmap_file_callback = function(err, data) {
   if (err) {throw err};
@@ -55,10 +58,16 @@ var anti_social_behaviour_heatmap_file_callback = function(err, data) {
     anti_social_behaviour_heatmap_data = data;
 }
 
+var vehicle_crime_heatmap_file_callback = function(err, data) {
+  if (err) {throw err};
+    vehicle_crime_heatmap_data = data;
+}
+
 
 function read_in_heatmap_data(callback) {
   fs.readFile(violent_crime_heatmap_file_path, 'UTF8', violent_crime_heatmap_file_callback);
   fs.readFile(anti_social_behaviour_heatmap_file_path, 'UTF8', anti_social_behaviour_heatmap_file_callback);
+  fs.readFile(vehicle_crime_heatmap_file_path, 'UTF8', vehicle_crime_heatmap_file_callback);
   callback(null);
 }
 
@@ -94,7 +103,8 @@ function done(err) {
          no_of_crimes_in_category: no_of_crimes_in_category,
          map_endpoint: map_endpoint,
          violent_crime_heatmap_data: violent_crime_heatmap_data,
-         anti_social_behaviour_heatmap_data: anti_social_behaviour_heatmap_data
+         anti_social_behaviour_heatmap_data: anti_social_behaviour_heatmap_data,
+         vehicle_crime_heatmap_data: vehicle_crime_heatmap_data
     });
   })
 }
