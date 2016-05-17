@@ -1,3 +1,4 @@
 node_modules/
 keys/
-
+helpers/create_country_grid/json/uk/
+helpers/create_crime_grid/json/uk/2016_01/all_crimes

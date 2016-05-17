@@ -40,9 +40,9 @@ function query_police_api(callback) {
 }
 
 // read in heat map data
-var violent_crime_heatmap_file_path = path.resolve('world_borders/crime_categories/violent_crime', 'violent_crime_heatmap.json');
-var anti_social_behaviour_heatmap_file_path = path.resolve('world_borders/crime_categories/anti_social_behaviour', 'anti_social_behaviour_heatmap.json');
-var vehicle_crime_heatmap_file_path = path.resolve('world_borders/crime_categories/vehicle_crime', 'vehicle_crime_heatmap.json');
+var violent_crime_heatmap_file_path = path.resolve('helpers/create_crime_grid/json/uk/2016_01/selected_crimes', 'violent_crime_heatmap.json');
+var anti_social_behaviour_heatmap_file_path = path.resolve('helpers/create_crime_grid/json/uk/2016_01/selected_crimes', 'anti_social_behaviour_heatmap.json');
+var vehicle_crime_heatmap_file_path = path.resolve('helpers/create_crime_grid/json/uk/2016_01/selected_crimes', 'vehicle_crime_heatmap.json');
 
 var violent_crime_heatmap_data;
 var anti_social_behaviour_heatmap_data;
