@@ -72,7 +72,7 @@ function read_in_heatmap_data(callback) {
 }
 
 // get a map from google maps api
-var key_file_path = path.join(__dirname, 'gmaps_api_browser_key');
+var key_file_path = path.resolve('keys', 'gmaps_api_browser_key');
 var key;
 var map_endpoint;
 
