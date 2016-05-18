@@ -1,7 +1,9 @@
 var turf = require('turf'),
-	path = require('path');
+	path = require('path'),
+	fs = require('fs');
 
-function createRectangleEnclosingTheCountry(lng1, lng2, lat1, lat2, path_to_file){
+
+function createRectangleEnclosingTheCountry(lng1, lng2, lat1, lat2, file_name){
 	var polygon = turf.polygon([[
  		[lng1, lat1],
  		[lng2, lat1],
@@ -10,10 +12,10 @@ function createRectangleEnclosingTheCountry(lng1, lng2, lat1, lat2, path_to_file
  		[lng1, lat1]
 	]]);
 
-	fs.writeFileSync(path_to_file, JSON.stringify(polygon, null, 2) , 'utf-8');
+	fs.writeFileSync(path.resolve('../geojson', file_name), JSON.stringify(polygon, null, 2) , 'utf-8');
 
 }
 
 //UK polygon
-createRectangleEnclosingTheCountry(-8.65, 1.77, 49.86, 60.86, path.resolve('geojson', 'uk_polygon2.geojson'));
+createRectangleEnclosingTheCountry(-8.65, 1.77, 49.86, 60.86, 'uk_polygon2.geojson');
 
