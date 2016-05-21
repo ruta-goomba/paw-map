@@ -6,7 +6,7 @@ var async = require('async');
 
 function JSONEncode(content, options) {  
   if ( ! (this instanceof JSONEncode))
-    return new JSONEncode(options);
+    return new JSONEncode(content, options);
 
   if (! options) options = {};
   options.objectMode = true;
