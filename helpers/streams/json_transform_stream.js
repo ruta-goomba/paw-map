@@ -4,13 +4,14 @@ var request = require('request');
 var async = require('async');
 
 
-function JSONEncode(options) {  
+function JSONEncode(content, options) {  
   if ( ! (this instanceof JSONEncode))
     return new JSONEncode(options);
 
   if (! options) options = {};
   options.objectMode = true;
   Transform.call(this, options);
+  this.date = content;
 }
 
 inherits(JSONEncode, Transform);
@@ -26,7 +27,7 @@ JSONEncode.prototype._transform = function _transform(obj, encoding, callback) {
     try {
       async.each(obj.coordinates.slice(prev_limit, limit), function(coords, cb) {
         prev_limit = limit;
-        endpoint = 'https://data.police.uk/api/crimes-street/all-crime?lat='+coords[1]+'&'+'lng='+coords[0]+'&date=2016-01';
+        endpoint = 'https://data.police.uk/api/crimes-street/all-crime?lat='+coords[1]+'&'+'lng='+coords[0]+'&date='+self.date;
         request(endpoint, function (error, response, body) {
           if (!error && response.statusCode == 200) {
             var output = JSON.parse(body);
@@ -43,7 +44,7 @@ JSONEncode.prototype._transform = function _transform(obj, encoding, callback) {
           if (limit === 0){
             self.push("{\"crimes\": [");
           } else if (limit === total_length-1){
-            self.push(JSON.stringify(obj.crimes)+']}');
+            setTimeout(function(){self.push(JSON.stringify(obj.crimes)+']}')}, 1000);
           } else {
             self.push(JSON.stringify(obj.crimes)+',');
           }
