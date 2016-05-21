@@ -1,51 +1,55 @@
-var fs = require('fs');
-var path = require('path');
+var fs = require('fs'),
+    path = require('path');
 
-var rectangle;
-var grid = {"geometry": { "coordinates": []}};
-var length=0;
-var height=0;
-var left_most;
-var bottom_most;
-var counter = 1;
-fs.readFile(path.join(__dirname, 'uk_polygon.geojson'), 'utf8', function (err, data) {
-  if (err) throw err;
-  rectangle = JSON.parse(data);
-  console.log(rectangle.geometry.coordinates[0]);
-  for (i=0; i<rectangle.geometry.coordinates[0].length; i++){
-    if (length === 0){
-      length = Math.abs(rectangle.geometry.coordinates[0][i][0] - rectangle.geometry.coordinates[0][i+1][0]);
-      if (rectangle.geometry.coordinates[0][i][0] < rectangle.geometry.coordinates[0][i+1][0]) {
-         left_most = rectangle.geometry.coordinates[0][i][0];
-      } else if (rectangle.geometry.coordinates[0][i][0] < rectangle.geometry.coordinates[0][i+1][0]) {
-         left_most = rectangle.geometry.coordinates[0][i+1][0];
-      }
-    } else if (height === 0) {
-      height = Math.abs(rectangle.geometry.coordinates[0][i][1] - rectangle.geometry.coordinates[0][i+1][1]);
-      if (rectangle.geometry.coordinates[0][i][1] < rectangle.geometry.coordinates[0][i+1][1]) {
-         bottom_most = rectangle.geometry.coordinates[0][i][1];
-      } else if (rectangle.geometry.coordinates[0][i][1] < rectangle.geometry.coordinates[0][i+1][1]) {
-         bottom_most = rectangle.geometry.coordinates[0][i+1][1];
-      }
+function generate_rectangular_grid(input_file_name, output_file_name){
+  fs.readFile(path.resolve('../geojson', input_file_name), 'utf8', function (err, data) {
+    if (err) throw err;
+    var rectangle = JSON.parse(data);
+    [width, height, left_most, bottom_most] = extract_starting_coords_and_width_and_height(rectangle.geometry.coordinates[0]);
+    var grid = generate_coordinates(left_most, bottom_most, width, height);
+    fs.writeFileSync(path.resolve('../json/uk',output_file_name), JSON.stringify(grid, null, 2) , 'utf-8');
+  });
+}
+     
+function extract_starting_coords_and_width_and_height(data){
+  var width = 0,
+      height = 0,
+      left_most = 1000,
+      bottom_most = 1000;
 
+  for (i=0; i<data.length; i++){
+    if (width === 0){
+      width = Math.abs(data[i][0] - data[i+1][0]);
+      if (data[i][0] < left_most){
+        left_most = data[i][0];
+      } 
+    } else if (height === 0){
+      height = Math.abs(data[i][1] - data[i+1][1]);
+      if (data[i][1] < bottom_most){
+        bottom_most = data[i][1];
+      }
     } else {
-      break;
+      break
     }
   }
+  return [width, height, left_most, bottom_most];
+}
+
+function generate_coordinates(left_most, bottom_most, width, height){
+  var grid = {"geometry": { "coordinates": []}};
   var bottom_most_init = bottom_most;
-  console.log('length is '+ length + ' and left most is '+ left_most);
-  console.log('height is '+ height + ' and bottom most is '+ bottom_most);
-  for (j=0; j<length; j+=0.02){
+  var counter = 0;
+  for (j=0; j<width; j+=0.02){
     left_most += 0.02;
     bottom_most = bottom_most_init;
-    console.log ("length is "+length+" and j is "+j);
     for (k=0; k<height; k+=0.02) {
       bottom_most += 0.02;
-      console.log ("height is "+height+" and k is "+k);
       console.log(counter++);
       grid.geometry.coordinates.push([left_most, bottom_most]);
     }
   }
-  fs.writeFileSync(path.join(__dirname,'uk_grid.json'), JSON.stringify(grid, null, 2) , 'utf-8');
-});
-     
+  return grid;
+}
+
+// UK
+generate_rectangular_grid('uk_polygon.geojson', 'uk_grid.json');
