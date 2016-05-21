@@ -1,13 +1,13 @@
 var fs = require('fs'),
     path = require('path');
 
-function generate_rectangular_grid(input_file_name, output_file_name){
+function generate_rectangular_grid(country, input_file_name, output_file_name){
   fs.readFile(path.resolve('../geojson', input_file_name), 'utf8', function (err, data) {
     if (err) throw err;
     var rectangle = JSON.parse(data);
     [width, height, left_most, bottom_most] = extract_starting_coords_and_width_and_height(rectangle.geometry.coordinates[0]);
     var grid = generate_coordinates(left_most, bottom_most, width, height);
-    fs.writeFileSync(path.resolve('../json/uk',output_file_name), JSON.stringify(grid, null, 2) , 'utf-8');
+    fs.writeFileSync(path.resolve('../json/'+country,output_file_name), JSON.stringify(grid, null, 2) , 'utf-8');
   });
 }
      
@@ -52,4 +52,4 @@ function generate_coordinates(left_most, bottom_most, width, height){
 }
 
 // UK
-generate_rectangular_grid('uk_polygon.geojson', 'uk_grid.json');
+generate_rectangular_grid('uk', 'uk_polygon.geojson', 'uk_grid.json');
