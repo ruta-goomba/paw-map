@@ -42,7 +42,7 @@ function cleanGrid(country, border_file_name, rectangular_grid_file_name, cleane
 }
 
 //UK
-cleanGrid('uk', 'uk_border.geojson', 'uk_grid.json', 'uk_cleaned_grid2.json');
+cleanGrid('uk', 'uk_border.geojson', 'uk_grid.json', 'uk_cleaned_grid.json');
 
 
 
