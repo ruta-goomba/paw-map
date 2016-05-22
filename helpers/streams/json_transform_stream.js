@@ -16,52 +16,39 @@ function JSONEncode(content, options) {
 
 inherits(JSONEncode, Transform);
 
-var counter = 0;
 
 JSONEncode.prototype._transform = function _transform(obj, encoding, callback) {  
   var self = this;
-  var total_length = obj.coordinates.length; 
-  var iter_limits = Array.apply(null, {length: total_length}).map(Number.call, Number);
-  var prev_limit = 0;
-  async.each(iter_limits, function(limit, callback_one){
-    try {
-      async.each(obj.coordinates.slice(prev_limit, limit), function(coords, cb) {
-        prev_limit = limit;
-        endpoint = 'https://data.police.uk/api/crimes-street/all-crime?lat='+coords[1]+'&'+'lng='+coords[0]+'&date='+self.date;
-        request(endpoint, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            var output = JSON.parse(body);
-            obj.crimes = [coords, output];
-            cb();
-          } else {
-            console.log(error);
-          }
-        });
-      }, function(err) {
-        if (err) {
-          console.log('failed to process');
+  var counter = 0;
+  async.eachLimit(obj.coordinates, 10, function(coords, cb) {
+    endpoint = 'https://data.police.uk/api/crimes-street/all-crime?lat='+coords[1]+'&'+'lng='+coords[0]+'&date='+self.date;
+    request(endpoint, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var output = JSON.parse(body);
+        obj.crimes = [coords, output];
+        if (counter === 0){
+          self.push("{\"crimes\": [");
+          cb();
+        } else if (counter === obj.coordinates.length-1){
+          setTimeout(function(){self.push(JSON.stringify(obj.crimes)+']}')}, 1000);
+          setTimeout(function(){cb()}, 2000);
         } else {
-          if (limit === 0){
-            self.push("{\"crimes\": [");
-          } else if (limit === total_length-1){
-            setTimeout(function(){self.push(JSON.stringify(obj.crimes)+']}')}, 1000);
-          } else {
-            self.push(JSON.stringify(obj.crimes)+',');
-          }
-          console.log(counter++);
+          self.push(JSON.stringify(obj.crimes)+',');
+          cb();
         }
-      });
-    } catch(err) {
-      return callback(err);
-    }
-  }, function(error_one){
-    if(error_one){
-      console.log('failed to estimate limits');
+        console.log(counter++);
+      } else {
+        console.log(error);
+        cb();
+      }
+    });
+  }, function(err) {
+    if (err) {
+      console.log('failed to process');
     } else {
-      callback_one();
-      callback()
+      callback();
     }
-  })
+  });
 };
 
 module.exports = JSONEncode;
