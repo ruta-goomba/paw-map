@@ -31,10 +31,10 @@ JSONEncode.prototype._transform = function _transform(obj, encoding, callback) {
           console.log(counter++);
           cb();
         } else if (counter === obj.coordinates.length-1){
-          setTimeout(function(){self.push(JSON.stringify(obj.crimes)+']}')}, 1000);
+          setTimeout(function(){self.push(JSON.stringify(obj.crimes,null, "\t")+']}')}, 1000);
           setTimeout(function(){cb()}, 2000);
         } else {
-          self.push(JSON.stringify(obj.crimes)+',');
+          self.push(JSON.stringify(obj.crimes,null, "\t")+',');
           console.log(counter++);
           cb();
         }
