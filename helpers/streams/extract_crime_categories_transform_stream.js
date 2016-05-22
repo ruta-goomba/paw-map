@@ -17,10 +17,10 @@ inherits(JSONClean, Transform);
 
 var output = {"location":undefined, weight:0};
 var counter = 0;
-var first_write = true;
 
 JSONClean.prototype._transform = function _transform(obj, encoding, callback) {  
   var self = this;
+  var first_write = true;
   var total_length = obj.length;
   var prev_limit = 0;
   var iter_limits = Array.apply(null, {length: total_length}).map(Number.call, Number);
@@ -56,7 +56,7 @@ JSONClean.prototype._transform = function _transform(obj, encoding, callback) {
           if (limit === total_length-1){
             setTimeout(function(){self.push(']')}, 2000);
           }
-          console.log(counter);
+          //console.log(counter);
           counter = 0;
         }
       });
