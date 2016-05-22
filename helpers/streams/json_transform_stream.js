@@ -28,17 +28,19 @@ JSONEncode.prototype._transform = function _transform(obj, encoding, callback) {
         obj.crimes = [coords, output];
         if (counter === 0){
           self.push("{\"crimes\": [");
+          console.log(counter++);
           cb();
         } else if (counter === obj.coordinates.length-1){
           setTimeout(function(){self.push(JSON.stringify(obj.crimes)+']}')}, 1000);
           setTimeout(function(){cb()}, 2000);
         } else {
           self.push(JSON.stringify(obj.crimes)+',');
+          console.log(counter++);
           cb();
         }
-        console.log(counter++);
       } else {
         console.log(error);
+        console.log(counter++);
         cb();
       }
     });
