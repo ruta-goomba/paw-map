@@ -1,6 +1,10 @@
 var path = require('path'),
     JSONStream = require('JSONStream'),
     async = require('async'),
+    Parser = require("stream-json/Parser"),
+    Streamer = require("stream-json/Streamer"),
+    parser = new Parser(),
+    streamer = new Streamer(),
     all_crime_categories = ['violent-crime', 'anti-social-behaviour', 'vehicle-crime', 'other-crime', 'theft-from-the-person', 'shoplifting', 'robbery', 'public-order', 'possession-of-weapons', 'other-theft', 'drugs', 'criminal-damage-arson', 'burglary', 'bicycle-theft'];
 
 function filter_crime_data(country, date, crime_category){
@@ -14,13 +18,14 @@ function filter_crime_data(country, date, crime_category){
       crime_category_heatmap = WriteStream(path.resolve('../create_crime_grid/json/'+country+'/'+date+'/selected_crimes', crime_category+'_heatmap.json'));
 
   crime_data
-  .pipe(JSONStream.parse('crimes'))
+  .pipe(parser)
+  .pipe(streamer)
   .pipe(crime_category_grid)
   .pipe(crime_category_heatmap);
 } 
 
 function create_heatmaps_for_all_crimes(crime_categories, country, date, callback){
-  async.each(crime_categories, function(crime_category, cb){
+  async.eachSeries(crime_categories, function(crime_category, cb){
     filter_crime_data(country, date, crime_category);
     cb();
   }, function(err){
@@ -33,8 +38,8 @@ function create_heatmaps_for_all_crimes(crime_categories, country, date, callbac
 }
 
 //uk
-create_heatmaps_for_all_crimes(all_crime_categories, 'uk', '2016-01', console.log);
-
+//create_heatmaps_for_all_crimes(all_crime_categories, 'uk', '2016-01', console.log);
+filter_crime_data('uk', '2016-01', 'violent-crime');
 
 
 
