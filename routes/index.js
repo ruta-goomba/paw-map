@@ -5,16 +5,16 @@ var fs = require('fs');
 var path = require('path');
 var async = require('async');
 
-var lng = '-1.131592';
-var lat = '52.629729';
-var date;
-var crime_categories = [];
-var no_of_crimes_in_category = [];
-var chart_data;
-
 var work = [query_police_api, read_in_heatmap_data, set_google_maps_api_endpoint];
 
-// get crime data from uk police api
+////////////////////////////////////////////////////////
+////////////// get crime data from uk police api ///////
+////////////////////////////////////////////////////////
+
+var lng = '-1.131592';
+var lat = '52.629729';
+var crime_categories = [];
+var no_of_crimes_in_category = [];
 
 var police_api_callback = function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -38,40 +38,36 @@ function query_police_api(callback) {
   request('https://data.police.uk/api/crimes-street/all-crime?lat='+lat+'&'+'lng='+lng, police_api_callback)
   callback(null);
 }
+////////////////////////////////////////////////////////
+////////////// read in heat map data ///////////////////
+////////////////////////////////////////////////////////
 
-// read in heat map data
-var violent_crime_heatmap_file_path = path.resolve('helpers/create_crime_grid/json/uk/2016_01/selected_crimes', 'violent_crime_heatmap.json');
-var anti_social_behaviour_heatmap_file_path = path.resolve('helpers/create_crime_grid/json/uk/2016_01/selected_crimes', 'anti_social_behaviour_heatmap.json');
-var vehicle_crime_heatmap_file_path = path.resolve('helpers/create_crime_grid/json/uk/2016_01/selected_crimes', 'vehicle_crime_heatmap.json');
-
-var violent_crime_heatmap_data;
-var anti_social_behaviour_heatmap_data;
-var vehicle_crime_heatmap_data;
-
-var violent_crime_heatmap_file_callback = function(err, data) {
-  if (err) {throw err};
-    violent_crime_heatmap_data = data;
-}
-
-var anti_social_behaviour_heatmap_file_callback = function(err, data) {
-  if (err) {throw err};
-    anti_social_behaviour_heatmap_data = data;
-}
-
-var vehicle_crime_heatmap_file_callback = function(err, data) {
-  if (err) {throw err};
-    vehicle_crime_heatmap_data = data;
-}
-
+var all_heat_maps = ['violent-crime', 'anti-social-behaviour', 'vehicle-crime', 'other-crime', 'theft-from-the-person', 'shoplifting', 'robbery', 'public-order', 'possession-of-weapons', 'other-theft', 'drugs', 'criminal-damage-arson', 'burglary', 'bicycle-theft'];
+var few_heat_maps = ['violent-crime', 'anti_social_behaviour', 'vehicle_crime'];
+var heatmap_data = {};
+var core_path = 'helpers/create_crime_grid/json/uk/2016-01/selected_crimes/';
 
 function read_in_heatmap_data(callback) {
-  fs.readFile(violent_crime_heatmap_file_path, 'UTF8', violent_crime_heatmap_file_callback);
-  fs.readFile(anti_social_behaviour_heatmap_file_path, 'UTF8', anti_social_behaviour_heatmap_file_callback);
-  fs.readFile(vehicle_crime_heatmap_file_path, 'UTF8', vehicle_crime_heatmap_file_callback);
-  callback(null);
+  async.each(few_heat_maps, function(heatmap, cb){
+    fs.readFile(core_path +heatmap+'_heatmap.json', 'UTF8', function(err, data){
+      if (err) {throw err};
+      heatmap_data[heatmap] = data;
+      cb();
+    });
+  }, function(err){
+    if (err) {
+      throw err
+    } else {
+      console.log(Object.keys(heatmap_data));
+      callback(null);
+    }
+  });
 }
 
-// get a map from google maps api
+////////////////////////////////////////////////////////
+////////////// get a map from google maps api //////////
+////////////////////////////////////////////////////////
+
 var key_file_path = path.resolve('keys', 'gmaps_api_browser_key');
 var key;
 var map_endpoint;
@@ -88,7 +84,9 @@ function set_google_maps_api_endpoint(callback) {
   callback(null);
 }
 
-/* GET home page. */
+////////////////////////////////////////////////////////
+////////////// GET home page. //////////////////////////
+////////////////////////////////////////////////////////
 
 
 async.series(work, done);
@@ -102,9 +100,9 @@ function done(err) {
          crime_categories: crime_categories, 
          no_of_crimes_in_category: no_of_crimes_in_category,
          map_endpoint: map_endpoint,
-         violent_crime_heatmap_data: violent_crime_heatmap_data,
-         anti_social_behaviour_heatmap_data: anti_social_behaviour_heatmap_data,
-         vehicle_crime_heatmap_data: vehicle_crime_heatmap_data
+         violent_crime_heatmap_data: heatmap_data['violent-crime'],
+         anti_social_behaviour_heatmap_data: heatmap_data['anti_social_behaviour'],
+         vehicle_crime_heatmap_data: heatmap_data['vehicle_crime']
     });
   })
 }
