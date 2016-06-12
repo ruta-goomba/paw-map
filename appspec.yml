@@ -6,6 +6,9 @@ files:
 hooks:
   BeforeInstall:
     - location: deployment_scripts/pre-install.sh
+      runas: root
   AfterInstall:
     - location: deployment_scripts/post-install.sh
       timeout: 180
+  ApplicationStart:
+    - location: deployment_scripts/start_application.sh
