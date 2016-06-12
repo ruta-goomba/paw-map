@@ -1,2 +1,2 @@
-cd ~/pawmap
+cd /pawmap
 npm start
