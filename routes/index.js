@@ -57,7 +57,6 @@ function read_in_heatmap_data(callback) {
     if (err) {
       throw err
     } else {
-      console.log(Object.keys(heatmap_data));
       callback(null);
     }
   });
