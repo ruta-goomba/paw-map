@@ -6,4 +6,4 @@ sudo n 6.2.0
 sudo ln -sf /usr/local/n/versions/node/6.2.0/bin/node /usr/bin/node
 cd ~
 mkdir pawmap
-cd pawmap
+cd ~/pawmap
