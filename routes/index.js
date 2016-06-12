@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var async = require('async');
 
-var work = [query_police_api, read_in_heatmap_data, set_google_maps_api_endpoint];
+var work = [query_police_api, read_in_heatmap_data];
 
 ////////////////////////////////////////////////////////
 ////////////// get crime data from uk police api ///////
@@ -66,21 +66,21 @@ function read_in_heatmap_data(callback) {
 ////////////// get a map from google maps api //////////
 ////////////////////////////////////////////////////////
 
-var key_file_path = path.resolve('keys', 'gmaps_api_browser_key');
-var key;
-var map_endpoint;
+// var key_file_path = path.resolve('keys', 'gmaps_api_browser_key');
+// var key;
+// var map_endpoint;
 
-var key_query_callback = function(err, data) {
-  if (err) {throw err};
-  key = data;
-  map_endpoint = 'https://maps.googleapis.com/maps/api/js?key='+key+'&libraries=visualization&callback=initMap';
-}
+// var key_query_callback = function(err, data) {
+//   if (err) {throw err};
+//   key = data;
+//   map_endpoint = 'https://maps.googleapis.com/maps/api/js?key='+key+'&libraries=visualization&callback=initMap';
+// }
 
 
-function set_google_maps_api_endpoint(callback) {
-  fs.readFile(key_file_path, 'UTF8', key_query_callback);
-  callback(null);
-}
+// function set_google_maps_api_endpoint(callback) {
+//   fs.readFile(key_file_path, 'UTF8', key_query_callback);
+//   callback(null);
+// }
 
 ////////////////////////////////////////////////////////
 ////////////// GET home page. //////////////////////////
@@ -97,7 +97,6 @@ function done(err) {
          title: 'Paw Map', 
          crime_categories: crime_categories, 
          no_of_crimes_in_category: no_of_crimes_in_category,
-         map_endpoint: map_endpoint,
          violent_crime_heatmap_data: heatmap_data['violent-crime'],
          anti_social_behaviour_heatmap_data: heatmap_data['anti-social-behaviour'],
          vehicle_crime_heatmap_data: heatmap_data['vehicle-crime'],
