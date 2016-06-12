@@ -1,3 +1,3 @@
-cd /
+cd ~/pawmap
 npm install
 
