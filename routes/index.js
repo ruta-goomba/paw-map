@@ -43,12 +43,11 @@ function query_police_api(callback) {
 ////////////////////////////////////////////////////////
 
 var all_heat_maps = ['violent-crime', 'anti-social-behaviour', 'vehicle-crime', 'other-crime', 'theft-from-the-person', 'shoplifting', 'robbery', 'public-order', 'possession-of-weapons', 'other-theft', 'drugs', 'criminal-damage-arson', 'burglary', 'bicycle-theft'];
-var few_heat_maps = ['violent-crime', 'anti_social_behaviour', 'vehicle_crime'];
 var heatmap_data = {};
 var core_path = 'helpers/create_crime_grid/json/uk/2016-01/selected_crimes/';
 
 function read_in_heatmap_data(callback) {
-  async.each(few_heat_maps, function(heatmap, cb){
+  async.each(all_heat_maps, function(heatmap, cb){
     fs.readFile(core_path +heatmap+'_heatmap.json', 'UTF8', function(err, data){
       if (err) {throw err};
       heatmap_data[heatmap] = data;
@@ -101,12 +100,22 @@ function done(err) {
          no_of_crimes_in_category: no_of_crimes_in_category,
          map_endpoint: map_endpoint,
          violent_crime_heatmap_data: heatmap_data['violent-crime'],
-         anti_social_behaviour_heatmap_data: heatmap_data['anti_social_behaviour'],
-         vehicle_crime_heatmap_data: heatmap_data['vehicle_crime']
+         anti_social_behaviour_heatmap_data: heatmap_data['anti-social-behaviour'],
+         vehicle_crime_heatmap_data: heatmap_data['vehicle-crime'],
+         other_crime_heatmap_data: heatmap_data['other-crime'],
+         theft_from_person_heatmap_data: heatmap_data['theft-from-the-person'],
+         shoplifting_heatmap_data: heatmap_data['shoplifting'],
+         robbery_heatmap_data: heatmap_data['robbery'],
+         public_order_heatmap_data: heatmap_data['public-order'],
+         possession_of_weapons_heatmap_data: heatmap_data['possession-of-weapons'],
+         other_theft_heatmap_data: heatmap_data['other-theft'],
+         drugs_heatmap_data: heatmap_data['drugs'],
+         arson_heatmap_data: heatmap_data['criminal-damage-arson'],
+         burglary_heatmap_data: heatmap_data['burglary'],
+         bicycle_theft_heatmap_data: heatmap_data['bicycle-theft']
     });
   })
 }
 
 
 module.exports = router;
-

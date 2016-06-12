@@ -51,7 +51,6 @@ html, body {
 }
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -59,8 +58,94 @@ a {
   color: #00B7FF;
 }
 
+h1 {
+  font-size: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FFFFFF;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FFFFFF;
+  font-style: italic;
+}
+
+h3 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FFFFFF;
+}
+
+p {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 20px 20px;
+}
+
+form {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 180%; 
+  margin-left: 5%;
+}
+
+button {
+  font-size: 16px;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.header {
+  padding: 10px;
+  background-color: #A0A0A0;
+}
+
+.content-unit {
+  width: 96%;
+  height: 100%;
+  display: block;
+  padding: 30px 20px;
+  overflow: hidden;
+}
+
+.content-unit__header {
+  background-color: #888888;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.content-unit__right {
+  width: 49%;
+  height: 100%;
+  display: inline-block;
+  padding-bottom: 32767px;
+  margin-bottom: -32767px
+}
+
+.content-unit__left {
+  width: 49%;
+  display: inline-block;
+  padding-bottom: 32767px;
+  margin-bottom: -32767px
+}
+
+.form-content {
+  width: 29%;
+}
+
+.map-content {
+  width: 70%;
+}
+
+.chart-content {
+  display: flex;
+}
+
 #map {
   height: 100%;
   width: 100%;
+  display: inline-block;
 }
 

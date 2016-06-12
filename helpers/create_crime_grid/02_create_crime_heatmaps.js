@@ -39,7 +39,7 @@ function create_heatmaps_for_all_crimes(crime_categories, country, date, callbac
 
 //uk
 //create_heatmaps_for_all_crimes(all_crime_categories, 'uk', '2016-01', console.log);
-filter_crime_data('uk', '2016-01', 'violent-crime');
+filter_crime_data('uk', '2016-01', 'bicycle-theft');
 
 
 
