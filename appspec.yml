@@ -11,4 +11,4 @@ hooks:
     - location: deployment_scripts/post-install.sh
       timeout: 180
   ApplicationStart:
-    - location: deployment_scripts/start_application.sh
+    - location: deployment_scripts/start-application.sh
