@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /
+    destination: /pawmap
 hooks:
   BeforeInstall:
     - location: deployment_scripts/pre-install.sh
