@@ -5,3 +5,17 @@ machine:
 test:
   override:    
     - mocha
+
+deployment:
+  production:
+    branch: master
+    codedeploy:
+      PawMapApp:
+        application_root: /
+        region: eu-west-1
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: pawmap
+            key_pattern: pawmap-{BRANCH}-{SHORT_COMMIT}
+        deployment_group: PawMapGroup

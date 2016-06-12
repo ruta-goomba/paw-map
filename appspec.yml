@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /
+hooks:
+  BeforeInstall:
+    - location: deployment_scripts/pre-install.sh
+  AfterInstall:
+    - location: deployment_scripts/post-install.sh
+      timeout: 180
