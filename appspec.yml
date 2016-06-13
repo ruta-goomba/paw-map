@@ -12,3 +12,7 @@ hooks:
       timeout: 180
   ApplicationStart:
     - location: deployment_scripts/start-application.sh
+      timeout: 180
+  ApplicationStop:
+    - location: deployment_scripts/stop-application.sh
+      timeout: 180

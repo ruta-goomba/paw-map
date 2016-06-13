@@ -1,2 +1,2 @@
 cd /pawmap
-npm start
+npm start &
