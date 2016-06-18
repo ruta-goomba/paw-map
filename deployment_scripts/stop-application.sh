@@ -1,1 +1,1 @@
-pkill node
+sudo pkill node
