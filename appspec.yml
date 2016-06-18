@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /
     destination: /pawmap
+  - source: nginx.conf
+    destination: /etc/nginx/nginx.conf
 hooks:
   BeforeInstall:
     - location: deployment_scripts/pre-install.sh
