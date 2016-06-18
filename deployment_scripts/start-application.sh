@@ -1,3 +1,2 @@
 cd /pawmap
-export PORT=80
-npm start  > /dev/null 2> /dev/null < /dev/null &
+npm start  > /tmp/log 2> /tmp/log < /tmp/log &
