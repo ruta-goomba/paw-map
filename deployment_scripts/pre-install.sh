@@ -6,7 +6,7 @@ sudo n 6.2.0
 sudo ln -sf /usr/local/n/versions/node/6.2.0/bin/node /usr/bin/node
 sudo apt-get -y update
 sudo apt-get -y install nginx
-sudo service nginx restart
+sudo rm /etc/nginx/nginx.conf
 cd /
 sudo mkdir pawmap
 cd /pawmap
