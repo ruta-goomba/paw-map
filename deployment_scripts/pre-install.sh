@@ -4,8 +4,8 @@ sudo npm cache clean -f
 sudo npm install -g n
 sudo n 6.2.0
 sudo ln -sf /usr/local/n/versions/node/6.2.0/bin/node /usr/bin/node
-sudo apt-get update
-sudo apt-get install nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
 sudo service nginx restart
 cd /
 sudo mkdir pawmap
