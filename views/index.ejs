@@ -11,24 +11,11 @@
     <p> The data for visualisations is obtained from the UK police API. Documentation for this API can be found <a href="https://data.police.uk/docs/">here.</a>
     <div class="content-unit">
       <div class="content-unit__header">
-        <h3>UK crime heatmaps by crime type (excluding Scotland) for January 2016</h3>
+        <h3>UK crime heatmaps by crime type (excluding Scotland)</h3>
       </div>
       <div class="content-unit__left form-content">
         <form onsubmit="return false;">
-          <input type="radio" name="heatmap_choice" value="violent-crime"  checked = "checked" onchange="set_heat_map_data()"> Violent Crime </br>
-          <input type="radio" name="heatmap_choice" value="anti-social-behaviour" onchange="set_heat_map_data()"> Anti-social behaviour </br>
-          <input type="radio" name="heatmap_choice" value="vehicle-crime" onchange="set_heat_map_data()"> Vehicle Crime </br>
-          <input type="radio" name="heatmap_choice" value="theft-from-the-person" onchange="set_heat_map_data()"> Theft from the person </br>
-          <input type="radio" name="heatmap_choice" value="shoplifting" onchange="set_heat_map_data()"> Shoplifting </br>
-          <input type="radio" name="heatmap_choice" value="robbery" onchange="set_heat_map_data()"> Robbery </br>
-          <input type="radio" name="heatmap_choice" value="public-order" onchange="set_heat_map_data()"> Public Order </br>
-          <input type="radio" name="heatmap_choice" value="possession-of-weapons" onchange="set_heat_map_data()"> Possesion of weapons </br>
-          <input type="radio" name="heatmap_choice" value="drugs" onchange="set_heat_map_data()"> Drugs </br>
-          <input type="radio" name="heatmap_choice" value="criminal-damage-arson" onchange="set_heat_map_data()"> Criminal Damage - Arson </br>
-          <input type="radio" name="heatmap_choice" value="burglary" onchange="set_heat_map_data()"> Burglary </br>
-          <input type="radio" name="heatmap_choice" value="bicycle-theft" onchange="set_heat_map_data()"> Bicycle Theft </br>
-          <input type="radio" name="heatmap_choice" value="other-theft" onchange="set_heat_map_data()"> Other Theft </br>
-          <input type="radio" name="heatmap_choice" value="other-crime" onchange="set_heat_map_data()"> Other Crime </br>
+          <% include partials/form_content %>
         </form> 
       </div>
       <div class="content-unit__right map-content">
@@ -46,83 +33,141 @@
       </div>
     </div>
     <script>
-    var map, heatmap, heatMapData;
-    
+    var map, heatmap, heatMapData, heatMapDataFull;
+    var keepOverlays = false;
+    var overlaysArray = [];
+
+    function clearOverlays() {
+      for (var i=0; i<overlaysArray.length; i++ ) {
+        overlaysArray[i].setMap(null);
+      }
+      overlaysArray.length = 0;
+    }
+
+    function DateControl(controlDiv) {
+
+      var numberOfButtons = <%- all_dates.length %>
+      var allDates = <%- JSON.stringify(all_dates) %>
+      controlDiv.style.clear = 'both';
+
+      for (var i=0; i<numberOfButtons; i++){
+        dateButton = document.createElement('button');
+        dateButton.className = 'date_button';
+        dateButton.innerHTML = allDates[i];
+        dateButton.addEventListener('click', function() {
+          var newDate = this.innerHTML;
+          updateHeatMap(heatMapDataFull, newDate);
+          if (keepOverlays){
+            this.className += ' clicked_date_button';
+          } else {
+            toggleClassName(this, 'date_button', 'clicked_date_button');
+          }
+        });
+        controlDiv.appendChild(dateButton);
+      }
+      dateButton.className += ' clicked_date_button';
+    }
+
+    function OverlayControl(controlDiv) {
+      var checkboxInput = document.createElement('input');
+      checkboxInput.setAttribute('type', 'checkbox');
+      checkboxInput.addEventListener('change', function() {
+        if (checkboxInput.checked){
+          keepOverlays = true;
+        } else {
+          keepOverlays = false;
+        }
+      });
+      var text = document.createElement('span');
+      text.innerHTML = 'Do not clear overlays';
+      controlDiv.appendChild(checkboxInput);
+      controlDiv.appendChild(text);
+    }
+
+    function toggleClassName(currentElement, baseClass, toggleClass){
+      var allElements = document.getElementsByClassName(baseClass);
+      for (var i=0; i<allElements.length; i++){
+        allElements[i].className = baseClass;
+      }
+      currentElement.className += ' '+toggleClass;
+    }
+
+   
     function set_heat_map_data(){
       var heatmap_choice_radios = document.getElementsByName('heatmap_choice');
       for (var i = 0, length = heatmap_choice_radios.length; i < length; i++) {
         if (heatmap_choice_radios[i].checked) {
           if (heatmap_choice_radios[i].value === 'violent-crime'){
-            heatMapData = <%- violent_crime_heatmap_data %>;
-            initMap();
+            heatMapDataFull = <%- JSON.stringify(violent_crime_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
           } else if (heatmap_choice_radios[i].value === 'anti-social-behaviour'){
-            heatMapData = <%- anti_social_behaviour_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'vehicle-crime'){
-            heatMapData = <%- vehicle_crime_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'other-crime'){
-            heatMapData = <%- other_crime_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'theft-from-the-person'){
-            heatMapData = <%- theft_from_person_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'shoplifting'){
-            heatMapData = <%- shoplifting_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'robbery'){
-            heatMapData = <%- robbery_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'public-order'){
-            heatMapData = <%- public_order_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'possession-of-weapons'){
-            heatMapData = <%- possession_of_weapons_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'other-theft'){
-            heatMapData = <%- other_theft_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'drugs'){
-            heatMapData = <%- drugs_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'criminal-damage-arson'){
-            heatMapData = <%- arson_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'burglary'){
-            heatMapData = <%- burglary_heatmap_data %>;
-            initMap();
-          } else if (heatmap_choice_radios[i].value === 'bicycle-theft'){
-            heatMapData = <%- bicycle_theft_heatmap_data %>;
-            initMap();
-          }
+            heatMapData = <%- JSON.stringify(anti_social_behaviour_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } 
         }
       }
     }
 
+    function updateHeatMap(heatmapDataFull, newDate){
+      // clear the old overlay
+      if (!keepOverlays){
+        clearOverlays();
+      }
+      // construct the new overlay
+      var heatmapData = JSON.parse(heatmapDataFull[newDate]);
+      for (var i=0; i< heatmapData.length; i++){
+        heatmapData[i].location = new google.maps.LatLng(heatmapData[i].location[1], heatmapData[i].location[0]);
+      }
+
+      heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        map: map
+      });
+      overlaysArray.push(heatmap);
+      heatmap.setMap(heatmap.getMap()); 
+    }
+
     function initMap() {
       if (!heatMapData){
-        heatMapData = <%- violent_crime_heatmap_data %>;
+        heatMapData = <%- violent_crime_heatmap_data['2016-04'] %>;
+        heatMapDataFull = <%- JSON.stringify(violent_crime_heatmap_data) %>;
       }
 
       for (var i=0; i< heatMapData.length; i++){
         heatMapData[i].location = new google.maps.LatLng(heatMapData[i].location[1], heatMapData[i].location[0]);
       }
 
+      // set the map center
       var leicester = new google.maps.LatLng(52.629729, -1.131592);
 
+      // create the map
       var mapDiv = document.getElementById('map');
       map = new google.maps.Map(mapDiv, {
         center: leicester,
         zoom: 6,
-        zoomControl: true
+        zoomControl: true,
+        mapTypeControl: false,
       });
+      // construct the map overlay
       heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapData,
         map: map
       });
-      console.log("executing initMap...");
+      overlaysArray.push(heatmap);
+
+      // construct custom map controls
+      var dateControlDiv = document.createElement('div');
+      var dateControl = new DateControl(dateControlDiv);
+      var overlayControlDiv = document.createElement('div');
+      overlayControlDiv.className = 'overlay-control';
+      var overlayControl = new OverlayControl(overlayControlDiv);
+
+      dateControlDiv.index = 1;
+      dateControlDiv.style['padding-top'] = '10px';
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(dateControlDiv);
+      map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(overlayControlDiv);
+      heatmap.setMap(heatmap.getMap());
     } 
-    setTimeout(function(){heatmap.setMap(heatmap.getMap()); console.log('executing setMap...')}, 500);
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1K2OVJWLAZvnNT6Ae_ZOdsE9F_9uTBLY&libraries=visualization&callback=initMap" async defer></script>
     <script>

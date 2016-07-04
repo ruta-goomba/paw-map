@@ -43,14 +43,17 @@ function query_police_api(callback) {
 ////////////////////////////////////////////////////////
 
 var all_heat_maps = ['violent-crime', 'anti-social-behaviour', 'vehicle-crime', 'other-crime', 'theft-from-the-person', 'shoplifting', 'robbery', 'public-order', 'possession-of-weapons', 'other-theft', 'drugs', 'criminal-damage-arson', 'burglary', 'bicycle-theft'];
+var subset_of_maps = ['violent-crime', 'anti-social-behaviour'];
+var all_dates = ['2015-05','2015-06', '2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02', '2016-03', '2016-04'];
 var heatmap_data = {};
-var core_path = 'helpers/create_crime_grid/json/uk/2016-01/selected_crimes/';
+var core_path = 'helpers/create_crime_grid/json/uk/crimes/';
 
 function read_in_heatmap_data(callback) {
-  async.each(all_heat_maps, function(heatmap, cb){
-    fs.readFile(core_path +heatmap+'_heatmap.json', 'UTF8', function(err, data){
+  async.each(subset_of_maps, function(heatmap, cb){
+    fs.readFile(core_path +heatmap+'.json', 'UTF8', function(err, data){
       if (err) {throw err};
-      heatmap_data[heatmap] = data;
+      heatmap_data[heatmap] = JSON.parse(data);
+      if (heatmap_data[heatmap]['2016-04']){console.log('data found')};
       cb();
     });
   }, function(err){
@@ -61,26 +64,6 @@ function read_in_heatmap_data(callback) {
     }
   });
 }
-
-////////////////////////////////////////////////////////
-////////////// get a map from google maps api //////////
-////////////////////////////////////////////////////////
-
-// var key_file_path = path.resolve('keys', 'gmaps_api_browser_key');
-// var key;
-// var map_endpoint;
-
-// var key_query_callback = function(err, data) {
-//   if (err) {throw err};
-//   key = data;
-//   map_endpoint = 'https://maps.googleapis.com/maps/api/js?key='+key+'&libraries=visualization&callback=initMap';
-// }
-
-
-// function set_google_maps_api_endpoint(callback) {
-//   fs.readFile(key_file_path, 'UTF8', key_query_callback);
-//   callback(null);
-// }
 
 ////////////////////////////////////////////////////////
 ////////////// GET home page. //////////////////////////
@@ -94,23 +77,24 @@ function done(err) {
   if (err) throw err;
   router.get('/', function(req, res, next) {
     res.render('index', { 
-         title: 'Paw Map', 
-         crime_categories: crime_categories, 
-         no_of_crimes_in_category: no_of_crimes_in_category,
-         violent_crime_heatmap_data: heatmap_data['violent-crime'],
-         anti_social_behaviour_heatmap_data: heatmap_data['anti-social-behaviour'],
-         vehicle_crime_heatmap_data: heatmap_data['vehicle-crime'],
-         other_crime_heatmap_data: heatmap_data['other-crime'],
-         theft_from_person_heatmap_data: heatmap_data['theft-from-the-person'],
-         shoplifting_heatmap_data: heatmap_data['shoplifting'],
-         robbery_heatmap_data: heatmap_data['robbery'],
-         public_order_heatmap_data: heatmap_data['public-order'],
-         possession_of_weapons_heatmap_data: heatmap_data['possession-of-weapons'],
-         other_theft_heatmap_data: heatmap_data['other-theft'],
-         drugs_heatmap_data: heatmap_data['drugs'],
-         arson_heatmap_data: heatmap_data['criminal-damage-arson'],
-         burglary_heatmap_data: heatmap_data['burglary'],
-         bicycle_theft_heatmap_data: heatmap_data['bicycle-theft']
+      title: 'Paw Map',
+      all_dates: all_dates, 
+      crime_categories: crime_categories, 
+      no_of_crimes_in_category: no_of_crimes_in_category,
+      violent_crime_heatmap_data: heatmap_data['violent-crime'],
+      anti_social_behaviour_heatmap_data: heatmap_data['anti-social-behaviour']
+      // vehicle_crime_heatmap_data: heatmap_data['vehicle-crime'],
+      // other_crime_heatmap_data: heatmap_data['other-crime'],
+      // theft_from_person_heatmap_data: heatmap_data['theft-from-the-person'],
+      // shoplifting_heatmap_data: heatmap_data['shoplifting'],
+      // robbery_heatmap_data: heatmap_data['robbery'],
+      // public_order_heatmap_data: heatmap_data['public-order'],
+      // possession_of_weapons_heatmap_data: heatmap_data['possession-of-weapons'],
+      // other_theft_heatmap_data: heatmap_data['other-theft'],
+      // drugs_heatmap_data: heatmap_data['drugs'],
+      // arson_heatmap_data: heatmap_data['criminal-damage-arson'],
+      // burglary_heatmap_data: heatmap_data['burglary'],
+      // bicycle_theft_heatmap_data: heatmap_data['bicycle-theft']
     });
   })
 }

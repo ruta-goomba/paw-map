@@ -107,7 +107,7 @@ button {
   height: 100%;
   display: block;
   padding: 30px 20px;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .content-unit__header {
@@ -141,6 +141,20 @@ button {
 
 .chart-content {
   display: flex;
+}
+
+.clicked_date_button {
+  font-weight: bold;
+  background-color: #A0A0A0;
+}
+
+.overlay-control {
+  background-color: #A0A0A0;
+  padding: 4px;
+}
+
+.overlay-control span {
+  font-size: 17px;
 }
 
 #map {
