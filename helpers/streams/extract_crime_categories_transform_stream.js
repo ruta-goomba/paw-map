@@ -42,7 +42,7 @@ JSONClean.prototype._transform = function _transform(obj, encoding, callback) {
         if (output.weight > 0){
           if (first_push_done){
             self.push(','+JSON.stringify(output, null, "\t"));
-            console.log('added coord '+ counter);
+            //console.log('added coord '+ counter);
             output = {"location":undefined, weight:0};
           } else {
             self.push(JSON.stringify(output, null, "\t"));
