@@ -101,9 +101,45 @@
             heatMapDataFull = <%- JSON.stringify(violent_crime_heatmap_data) %>;
             updateHeatMap(heatMapDataFull,'2016-04');
           } else if (heatmap_choice_radios[i].value === 'anti-social-behaviour'){
-            heatMapData = <%- JSON.stringify(anti_social_behaviour_heatmap_data) %>;
+            heatMapDataFull = <%- JSON.stringify(anti_social_behaviour_heatmap_data) %>;
             updateHeatMap(heatMapDataFull,'2016-04');
-          } 
+          } else if (heatmap_choice_radios[i].value === 'vehicle-crime'){
+            heatMapDataFull = <%- JSON.stringify(vehicle_crime_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'other-crime'){
+            heatMapDataFull = <%- JSON.stringify(other_crime_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'theft-from-the-person'){
+            heatMapDataFull = <%- JSON.stringify(theft_from_person_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'shoplifting'){
+            heatMapDataFull = <%- JSON.stringify(shoplifting_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'robbery'){
+            heatMapDataFull = <%- JSON.stringify(robbery_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'public-order'){
+            heatMapDataFull = <%- JSON.stringify(public_order_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'possession-of-weapons'){
+            heatMapDataFull = <%- JSON.stringify(possession_of_weapons_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'other-theft'){
+            heatMapDataFull = <%- JSON.stringify(other_theft_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'drugs'){
+            heatMapDataFull = <%- JSON.stringify(drugs_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'criminal-damage-arson'){
+            heatMapDataFull = <%- JSON.stringify(arson_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'burglary'){
+            heatMapDataFull = <%- JSON.stringify(burglary_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          } else if (heatmap_choice_radios[i].value === 'bicycle-theft'){
+            heatMapDataFull = <%- JSON.stringify(bicycle_theft_heatmap_data) %>;
+            updateHeatMap(heatMapDataFull,'2016-04');
+          }
         }
       }
     }
