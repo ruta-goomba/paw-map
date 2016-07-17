@@ -1,0 +1,35 @@
+#app {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #4d4d4d;
+  margin: 0 auto;
+}
+
+a.active {
+  color: orange;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.header {
+  width: 100%;
+  padding: 10px;
+  background-color: #A0A0A0;
+}
+
+.header p {
+  font-size: 20px;
+  color: #FFFFFF;
+  font-style: italic;
+}
+
+.header__title {
+  color: #FFFFFF;
+  font-size: 60px;
+}
+
+.header__title:hover {
+  text-decoration: none;
+  color: #FFFFFF;
+}
