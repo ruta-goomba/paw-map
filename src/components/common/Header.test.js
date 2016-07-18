@@ -7,8 +7,8 @@ function setup() {
   return shallow(<Header/>);
 }
 
-it( 'renders header component', () => {
+it( 'renders Header component', () => {
   const wrapper = setup();
-  expect(wrapper.find('nav').length).toBe(1);
+  expect(wrapper.find('nav').children().length).toBe(2);
   expect(wrapper.find('p').text()).toEqual('Visualise locational information');
 });
