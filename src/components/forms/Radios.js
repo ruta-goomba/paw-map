@@ -1,12 +1,16 @@
 import React, {PropTypes} from 'react';
 
-const Radios = ({categories}) => {
+const Radios = ({categories, selected, onRadioChange}) => {
   return (
     <div>
       <form>
         {categories.map(category =>
           <div key={category} className="section__form--radios">
-            <input type="radio"/>
+            <input type="radio"
+                   checked={(selected===category) ? 'checked' : ''}
+                   onChange={onRadioChange}
+                   value={category}
+            />
             <label>{category}</label>
           </div>
         )}
@@ -16,7 +20,9 @@ const Radios = ({categories}) => {
 };
 
 Radios.propTypes = {
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
+  selected: PropTypes.string,
+  onRadioChange: PropTypes.func
 };
 
 export default Radios;
