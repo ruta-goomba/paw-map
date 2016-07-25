@@ -17,6 +17,7 @@
     "babel-polyfill": "6.8.0",
     "bootstrap": "3.3.6",
     "jquery": "2.2.3",
+    "json-loader": "0.5.4",
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "react-redux": "4.4.5",
@@ -71,4 +72,3 @@
     "url": "https://github.com/ruta-goomba/paw-map.git"
   }
 }
-

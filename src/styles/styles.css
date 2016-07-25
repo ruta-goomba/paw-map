@@ -49,3 +49,14 @@ a.active {
   font-size: 20px;
   color: #FFFFFF;
 }
+
+.section__form--radios {
+  padding: 3px 10px;
+}
+
+.section__form--radios label {
+  padding-left: 4px;
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  vertical-align: middle;
+}
