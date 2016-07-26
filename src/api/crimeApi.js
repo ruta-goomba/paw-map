@@ -6,16 +6,6 @@ const crime_categories = [
   'shoplifting', 'robbery', 'public-order', 'possession-of-weapons', 'other-theft', 'drugs',
   'criminal-damage-arson', 'burglary', 'bicycle-theft'
 ];
-const test_categories = [ 'violent-crime' ];
-let paths = [];
-
-function generatePaths(path_ending_array){
-  path_ending_array.forEach(createPaths);
-}
-
-function createPaths(element, index, array){
-  paths.push(core_path + element + '.json');
-}
 
 class CrimeApi {
   static getAllCrimes() {

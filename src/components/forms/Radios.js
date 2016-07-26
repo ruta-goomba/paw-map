@@ -2,10 +2,10 @@ import React, {PropTypes} from 'react';
 
 const Radios = ({categories, selected, onRadioChange}) => {
   return (
-    <div>
+    <div className="section__form--radios">
       <form>
         {categories.map(category =>
-          <div key={category} className="section__form--radios">
+          <div key={category} className="section__form--radio">
             <input type="radio"
                    checked={(selected===category) ? 'checked' : ''}
                    onChange={onRadioChange}
