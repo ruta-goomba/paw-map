@@ -45,7 +45,10 @@ class HomePage extends React.Component {
             selected={this.state.category}
             onRadioChange={this.updateCategoryState}
           />
-          <LeafletMap/>
+          <LeafletMap
+            points={this.props.crimes}
+            date={this.state.date}
+          />
         </Section>
         <Section header_content="UK crime charts by crime type (excluding Scotland) for January 2016">
           <Intro/>

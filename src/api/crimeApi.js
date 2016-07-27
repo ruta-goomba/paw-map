@@ -1,4 +1,4 @@
-import test from './test.json'; // eslint-disable-line
+import violent_crime from '../../helpers/create_crime_grid/json/uk/dates/2015-05/selected_crimes/violent-crime_heatmap.json'; // eslint-disable-line
 
 const core_path = '/home/goomba/Documents/paw-map/helpers/create_crime_grid/json/uk/crimes/';
 const crime_categories = [
@@ -12,7 +12,9 @@ class CrimeApi {
   static getAllCrimes() {
     return new Promise((resolve, reject) => {
       try {
-        resolve(Object.assign([], test));
+        debugger;
+        resolve(violent_crime);
+        debugger;
       } catch (err) {
         reject(err);
       }

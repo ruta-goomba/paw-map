@@ -4,6 +4,7 @@ import crimeApi from '../api/crimeApi';
 export function loadCrimes(){
   return function (dispatch) {
     return crimeApi.getAllCrimes().then(crimes => {
+      debugger;
       dispatch(loadCrimesSuccess(crimes));
     }).catch(error => {
       throw(error);
