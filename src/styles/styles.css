@@ -80,3 +80,12 @@ a.active {
 .leaflet-tile-pane {
   z-index: 2;
 }
+
+.section__button-group {
+  padding: 10px 60px;
+}
+
+.section__button-group button {
+  font-size: 14px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

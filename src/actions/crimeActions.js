@@ -21,10 +21,24 @@ export function loadCrimeCategories(){
   };
 }
 
+export function loadCrimeDates(){
+  return function (dispatch) {
+    return crimeApi.getAllCrimeDates().then(crime_dates => {
+      dispatch(loadCrimeDatesSuccess(crime_dates));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
 export function loadCrimesSuccess(crimes) {
   return { type: types.LOAD_CRIMES_SUCCESS, crimes};
 }
 
 export function loadCrimeCategoriesSuccess(crime_categories) {
   return { type: types.LOAD_CRIME_CATEGORIES_SUCCESS, crime_categories};
+}
+
+export function loadCrimeDatesSuccess(crime_dates) {
+  return { type: types.LOAD_CRIME_DATES_SUCCESS, crime_dates};
 }
