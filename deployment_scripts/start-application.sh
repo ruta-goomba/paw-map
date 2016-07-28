@@ -1,2 +1,2 @@
 cd /pawmap
-npm start  > /tmp/log 2> /tmp/log < /tmp/log &
+npm run build  > /tmp/log 2> /tmp/log < /tmp/log &
