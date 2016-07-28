@@ -6,7 +6,7 @@ files:
   - source: nginx.conf
     destination: /etc/nginx
   - source: package.json
-    destination: package.json
+    destination: /pawmap/package.json
 hooks:
   BeforeInstall:
     - location: deployment_scripts/pre-install.sh
