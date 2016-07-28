@@ -18,5 +18,5 @@ function get_crime_data(country, date){
 }
 
 // UK, 2016-01
-get_crime_data('uk', '2016-01');
+get_crime_data('uk', '2015-12');
 

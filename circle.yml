@@ -3,8 +3,8 @@ machine:
     version: 6.2.0
 
 test:
-  override:    
-    - mocha
+  override:
+    - npm run test
 
 deployment:
   staging:
