@@ -7,6 +7,8 @@ files:
     destination: /etc/nginx
   - source: package.json
     destination: /pawmap/package.json
+  - source: /tools/distServer.js
+    destination: /pawmap/tools/distServer.js
 hooks:
   BeforeInstall:
     - location: deployment_scripts/pre-install.sh
