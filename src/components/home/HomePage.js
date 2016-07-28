@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import Intro from '../common/Intro';
 import Section from '../common/Section';
 import Radios from '../selectors/Radios';
-import ButtonGroup from '../selectors/ButtonGroup';
 import LeafletMap from '../maps/LeafletMap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -14,7 +13,7 @@ class HomePage extends React.Component {
 
     this.state = {
       category: 'violent-crime',
-      date: '2015-05',
+      date: '2016-04',
       errors: {}
     };
 
@@ -36,11 +35,6 @@ class HomePage extends React.Component {
       <div>
         <Intro/>
         <Section header_content="UK crime heatmaps by crime type (excluding Scotland) for April 2016">
-          <ButtonGroup
-            dates={this.props.crime_dates}
-            selected={this.state.date}
-            onButtonClick={this.updateDateState}
-          />
           <Radios
             categories={this.props.crime_categories}
             selected={this.state.category}
@@ -61,7 +55,6 @@ HomePage.propTypes = {
   crime_categories: PropTypes.array.isRequired,
   crime_dates: PropTypes.array.isRequired,
   category: PropTypes.string,
-  date: PropTypes.string,
   actions: PropTypes.object.isRequired
 };
 
