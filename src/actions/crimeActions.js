@@ -1,11 +1,20 @@
 import * as types from './actionTypes';
 import crimeApi from '../api/crimeApi';
 
-export function loadCrimes(){
+export function loadCrimes(category){
   return function (dispatch) {
-    return crimeApi.getAllCrimes().then(crimes => {
-      debugger;
+    return crimeApi.getCrimes(category).then(crimes => {
       dispatch(loadCrimesSuccess(crimes));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function loadCrimesInitial(){
+  return function (dispatch) {
+    return crimeApi.getCrimesInitial().then(crimes => {
+      dispatch(loadCrimesInitialSuccess(crimes));
     }).catch(error => {
       throw(error);
     });
@@ -34,6 +43,10 @@ export function loadCrimeDates(){
 
 export function loadCrimesSuccess(crimes) {
   return { type: types.LOAD_CRIMES_SUCCESS, crimes};
+}
+
+export function loadCrimesInitialSuccess(crimes) {
+  return { type: types.LOAD_CRIMES_INITIAL_SUCCESS, crimes};
 }
 
 export function loadCrimeCategoriesSuccess(crime_categories) {

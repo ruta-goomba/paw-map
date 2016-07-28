@@ -23,6 +23,7 @@ class HomePage extends React.Component {
   }
 
   updateCategoryState(event) {
+    this.props.actions.loadCrimes(event.target.value);
     return this.setState({category: event.target.value});
   }
 
@@ -34,7 +35,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <Intro/>
-        <Section header_content="UK crime heatmaps by crime type (excluding Scotland) for January 2016">
+        <Section header_content="UK crime heatmaps by crime type (excluding Scotland) for April 2016">
           <ButtonGroup
             dates={this.props.crime_dates}
             selected={this.state.date}
@@ -49,9 +50,6 @@ class HomePage extends React.Component {
             points={this.props.crimes}
             date={this.state.date}
           />
-        </Section>
-        <Section header_content="UK crime charts by crime type (excluding Scotland) for January 2016">
-          <Intro/>
         </Section>
       </div>
     );
