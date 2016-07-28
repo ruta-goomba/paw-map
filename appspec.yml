@@ -1,10 +1,12 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /pawmap
+  - source: /dist
+    destination: /pawmap/dist
   - source: nginx.conf
     destination: /etc/nginx
+  - source: package.json
+    destination: package.json
 hooks:
   BeforeInstall:
     - location: deployment_scripts/pre-install.sh
