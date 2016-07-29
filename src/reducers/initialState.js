@@ -2,5 +2,6 @@ export default {
   crimes: [],
   crime_categories: [],
   crime_dates: [],
-  category: 'violent-crime'
+  category: 'violent-crime',
+  spots: []
 };

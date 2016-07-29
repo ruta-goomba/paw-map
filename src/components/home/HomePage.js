@@ -23,6 +23,7 @@ class HomePage extends React.Component {
 
   updateCategoryState(event) {
     this.props.actions.loadCrimes(event.target.value);
+    this.props.actions.loadCrimeHotSpots(event.target.value);
     return this.setState({category: event.target.value});
   }
 
@@ -43,6 +44,7 @@ class HomePage extends React.Component {
           <LeafletMap
             points={this.props.crimes}
             date={this.state.date}
+            hotspots={this.props.hot_spots}
           />
         </Section>
       </div>
@@ -55,6 +57,7 @@ HomePage.propTypes = {
   crime_categories: PropTypes.array.isRequired,
   crime_dates: PropTypes.array.isRequired,
   category: PropTypes.string,
+  hot_spots: PropTypes.array,
   actions: PropTypes.object.isRequired
 };
 
@@ -63,7 +66,8 @@ function mapStateToProps(state, ownProps) {
     crimes: state.crimes,
     crime_categories: state.crime_categories,
     crime_dates: state.crime_dates,
-    category: state.category
+    category: state.category,
+    hot_spots: state.spots
   };
 }
 

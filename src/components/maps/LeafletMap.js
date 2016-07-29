@@ -1,15 +1,16 @@
 import React, {PropTypes} from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import { Map, TileLayer, Marker} from 'react-leaflet';
+import { divIcon, point } from 'leaflet';
 import HeatmapLayer from 'react-leaflet-heatmap-layer';
 
 const gradient = { '0.1': '#89BDE0', '0.2': '#96E3E6', '0.4': '#82CEB6', '0.6': '#FAF3A5', '0.8': '#F5D98B', '1.0': '#DE9A96'};
+const default_position = [52.629729, -1.131592];
+const text = '...';
 
-const LeafletMap = ({points, date}) => (
+const LeafletMap = ({points, date, hotspots}) => (
   <div className="section__map">
-    <Map center={[52.629729, -1.131592]} zoom={7}>
+    <Map center={[52.629729, -1.131592]} zoom={6}>
       <HeatmapLayer
-        fitBoundsOnLoad
-        fitBoundsOnUpdate
         points={points}
         longitudeExtractor={m => m['location'][0]}
         latitudeExtractor={m => m['location'][1]}
@@ -19,13 +20,26 @@ const LeafletMap = ({points, date}) => (
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
+      <Marker
+        position={(hotspots.length>0) ? [hotspots[0]['location'][1],hotspots[0]['location'][0]] : default_position}
+        icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[0]['weight']).toString() : text, iconSize: point(40, 40)})}>
+      </Marker>
+      <Marker
+        position={(hotspots.length>0) ? [hotspots[1]['location'][1],hotspots[1]['location'][0]] : default_position}
+        icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[1]['weight']).toString() : text, iconSize: point(40, 40)})}>
+      </Marker>
+      <Marker
+        position={(hotspots.length>0) ? [hotspots[2]['location'][1],hotspots[2]['location'][0]] : default_position}
+        icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[2]['weight']).toString() : text, iconSize: point(40, 40)})}>
+      </Marker>
     </Map>
   </div>
 );
 
 LeafletMap.propTypes = {
   date: PropTypes.string.isRequired,
-  points: PropTypes.array
+  points: PropTypes.array,
+  hotspots: PropTypes.array
 };
 
 export default LeafletMap;
