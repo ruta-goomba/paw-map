@@ -4,12 +4,12 @@ import {mount, shallow} from 'enzyme';
 import Info from './Info';
 
 function setup() {
-  return shallow(<Info/>);
+  return shallow(<Info text="some text" link="http://someplace.com"/>);
 }
 
-it( 'renders Intro component', () => {
+it( 'renders Info component', () => {
   const wrapper = setup();
   expect(wrapper.find('div').children().length).toBe(1);
-  expect(wrapper.find('p').text()).toInclude('The data for visualisations is obtained from the UK police API.');
-  expect(wrapper.find('a').text()).toInclude('here');
+  expect(wrapper.find('p').text()).toInclude('some text');
+  expect(wrapper.find('a').prop('href')).toBe('http://someplace.com');
 });
