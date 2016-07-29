@@ -72,6 +72,16 @@ a.active {
   width: 70%;
 }
 
+.section__map__marker--crime-hot-spot {
+  background-image: url('../pics/Map-Marker-Board-Pink.png');
+  background-size: 40px 40px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+  text-align: center;
+  line-height: 35px;
+}
+
 .leaflet-container {
   overflow: hidden;
   height: 100%;
