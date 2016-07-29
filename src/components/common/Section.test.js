@@ -2,7 +2,7 @@ import expect from 'expect';
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 import Section from './Section';
-import Intro from './Intro';
+import Intro from './Info';
 
 function setup() {
   return shallow(<Section

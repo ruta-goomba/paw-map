@@ -20,18 +20,12 @@ const LeafletMap = ({points, date, hotspots}) => (
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker
-        position={(hotspots.length>0) ? [hotspots[0]['location'][1],hotspots[0]['location'][0]] : default_position}
-        icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[0]['weight']).toString() : text, iconSize: point(40, 40)})}>
-      </Marker>
-      <Marker
-        position={(hotspots.length>0) ? [hotspots[1]['location'][1],hotspots[1]['location'][0]] : default_position}
-        icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[1]['weight']).toString() : text, iconSize: point(40, 40)})}>
-      </Marker>
-      <Marker
-        position={(hotspots.length>0) ? [hotspots[2]['location'][1],hotspots[2]['location'][0]] : default_position}
-        icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[2]['weight']).toString() : text, iconSize: point(40, 40)})}>
-      </Marker>
+      {[0,1,2].map(pos =>
+        <Marker key={Math.random()}
+          position={(hotspots.length>0) ? [hotspots[pos]['location'][1],hotspots[pos]['location'][0]] : default_position}
+          icon={divIcon({className: 'section__map__marker--crime-hot-spot', html:(hotspots.length>0)  ? (hotspots[pos]['weight']).toString() : text, iconSize: point(40, 40)})}
+        />
+      )}
     </Map>
   </div>
 );

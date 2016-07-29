@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Intro from '../common/Intro';
+import Info from '../common/Info';
 import Section from '../common/Section';
 import Radios from '../selectors/Radios';
 import LeafletMap from '../maps/LeafletMap';
@@ -34,8 +34,16 @@ class HomePage extends React.Component {
   render(){
     return (
       <div>
-        <Intro/>
+        <Info
+          text="The data for visualisations is obtained from the UK police API.
+        Documentation for this API can be found "
+          link="https://data.police.uk/docs/"
+        />
         <Section header_content="UK crime heatmaps by crime type (excluding Scotland) for April 2016">
+          <Info
+            text="Select the crime category to see the heat map of that crime.
+            The top three incidences of that crime are marked on the map"
+          />
           <Radios
             categories={this.props.crime_categories}
             selected={this.state.category}

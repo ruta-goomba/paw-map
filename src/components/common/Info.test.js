@@ -1,10 +1,10 @@
 import expect from 'expect';
 import React from 'react';
 import {mount, shallow} from 'enzyme';
-import Intro from './Intro';
+import Info from './Info';
 
 function setup() {
-  return shallow(<Intro/>);
+  return shallow(<Info/>);
 }
 
 it( 'renders Intro component', () => {
