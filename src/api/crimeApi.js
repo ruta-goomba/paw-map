@@ -74,10 +74,89 @@ class CrimeApi {
     });
   }
 
+  static getCrimeHotSpots(crime) {
+    return new Promise((resolve, reject) => {
+      try {
+        // a long and horrible chain of if statements since dynamic loading produced memory leaks
+        if (crime === 'violent-crime'){
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/violent-crime_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'anti-social-behaviour') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/anti-social-behaviour_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'public-order'){
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/public-order_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'vehicle-crime') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/vehicle-crime_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'drugs') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/drugs_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'possession-of-weapons') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/possession-of-weapons_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'theft-from-the-person') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/theft-from-the-person_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'shoplifting') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/shoplifting_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'robbery') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/robbery_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'burglary') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/burglary_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'bicycle-theft') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/bicycle-theft_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'other-theft') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/other-theft_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'criminal-damage-arson') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/criminal-damage-arson_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        } else if (crime === 'other-crime') {
+          System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/other-crime_top_spots.json').then(crimes => {
+            resolve(crimes);
+          });
+        }
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
   static getCrimesInitial() {
     return new Promise((resolve, reject) => {
       try {
-        System.import('../../helpers/create_crime_grid/json/uk/dates/2015-05/selected_crimes/violent-crime_heatmap.json').then(crimes => {
+        System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/violent-crime_heatmap.json').then(crimes => {
+          resolve(crimes);
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  static getCrimeHotSpotsInitial() {
+    return new Promise((resolve, reject) => {
+      try {
+        System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/violent-crime_top_spots.json').then(crimes => {
           resolve(crimes);
         });
       } catch (err) {
