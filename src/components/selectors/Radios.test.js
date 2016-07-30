@@ -11,5 +11,5 @@ function setup() {
 it( 'renders Radios component', () => {
   const wrapper = setup();
   expect(wrapper.find('form').children().length).toBe(2);
-  expect(wrapper.find('form').children().at(1).text()).toEqual('comp-second');
+  expect(wrapper.find('form').children().at(1).text()).toEqual('comp second');
 });
