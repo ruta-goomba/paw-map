@@ -11,7 +11,7 @@ const Radios = ({categories, selected, onRadioChange}) => {
                    onChange={onRadioChange}
                    value={category}
             />
-            <label>{category}</label>
+            <label>{category.replace(/-/g, ' ')}</label>
           </div>
         )}
       </form>
