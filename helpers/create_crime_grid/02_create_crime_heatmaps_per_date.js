@@ -10,7 +10,7 @@ var path = require('path'),
 function filter_crime_data(country, date, crime_category){
   var ReadStream = require('../streams/file_readable_stream.js'),
       crime_data = ReadStream(path.resolve('../create_crime_grid/json/'+country+'/dates/'+date+'/all_crimes', country+'_crimes_grid_'+date+'.json'));
-      
+
   var TransformStream = require('../streams/extract_crime_categories_transform_stream.js'),
       crime_category_grid = TransformStream(crime_category);
 
@@ -43,7 +43,7 @@ function create_heatmaps_for_all_crimes(crime_categories, country, date, callbac
 
 //uk
 //create_heatmaps_for_all_crimes(all_crime_categories, 'uk', '2016-05', console.log);
-filter_crime_data('uk', '2016-04', 'bicycle-theft');
+filter_crime_data('uk', '2016-05', 'bicycle-theft');
 
 
 
