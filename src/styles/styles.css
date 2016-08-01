@@ -99,3 +99,8 @@ a.active {
   font-size: 14px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+.section__chart--line {
+  display: inline-block;
+  margin-left: 60px;
+}
