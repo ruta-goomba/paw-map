@@ -15,13 +15,14 @@ const xRange = function(props){
   return range;
 };
 const yMax   = (data)  => d3.max(data, (d) => d[1]);
+const yMin   = (data)  => d3.min(data, (d) => d[1]);
 const xScale = (props) => {
   return d3.scaleOrdinal()
     .range(xRange(props));
 };
 const yScale = (props) => {
   return d3.scaleLinear()
-    .domain([0, yMax(props.data)])
+    .domain([yMin(props.data), yMax(props.data)])
     .range([props.height - props.padding, props.padding]);
 };
 const marshalProps = (props) => {
