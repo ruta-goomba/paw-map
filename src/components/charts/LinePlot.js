@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import React from 'react';
 import DataCircles from './DataCircles';
+import DataLine from './DataLine';
 import XYAxis from './XYAxis';
 
 const xRange = function(props){
@@ -36,6 +37,7 @@ const ScatterPlot = (props) => {
     <div className="section__chart--line">
       <svg width={d3Props.width} height={d3Props.height}>
         <DataCircles {...d3Props}/>
+        <DataLine {...d3Props}/>
         <XYAxis {...d3Props}/>
       </svg>
     </div>
