@@ -2,19 +2,15 @@ import React from 'react';
 import * as d3 from 'd3';
 
 const renderLine = (props) => {
-  return (coords, index) => {
-    const circleProps = {
-      cx: props.xScale(coords[0]),
-      cy: props.yScale(coords[1]),
-      r: 2,
-      key: index
-    };
-    return <circle {...circleProps} />;
-  };
+  let path = d3.line()
+    .x((d) => { return props.xScale(d[0]); })
+    .y((d) => { return props.yScale(d[1]); })
+    .curve(d3.curveCatmullRom.alpha(0.5));
+  return <path d={path(props.data)} strokeLinecap="round" stroke="black" fill="none"/>;
 };
 
 const DataLine = (props) => {
-  return <path d={} datum={props.data}/>;
+  return (<g>{renderLine(props)}</g>);
 };
 
 export default DataLine;
