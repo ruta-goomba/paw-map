@@ -3,7 +3,7 @@ import Info from '../common/Info';
 import Section from '../common/Section';
 import Radios from '../selectors/Radios';
 import LeafletMap from '../maps/LeafletMap';
-import ScatterPlot from '../charts/ScatterPlot';
+import LinePlot from '../charts/LinePlot';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as crimeActions from '../../actions/crimeActions';
@@ -66,7 +66,7 @@ class HomePage extends React.Component {
         <Section header_content="Total number of crimes of each category committed in the country between 2015 and 2016 (excluding Scotland)">
           <Info
             text="Select the crime category to see the total number of crimes
-            committed on monthly basis for the time period between May 2015 and May 2016"
+            committed on monthly basis for the time period between March 2015 and May 2016"
           />
         </Section>
         <Radios
@@ -74,7 +74,7 @@ class HomePage extends React.Component {
           selected={this.state.category}
           onRadioChange={this.updateCategoryState}
         />
-        <ScatterPlot {...{data: this.props.crime_totals}} {...chartStyles} />
+        <LinePlot {...{data: this.props.crime_totals}} {...chartStyles} />
       </div>
     );
   }
