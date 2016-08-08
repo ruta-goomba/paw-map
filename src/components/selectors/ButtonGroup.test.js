@@ -7,7 +7,7 @@ function setup() {
   const dates=['2015-01', '2015-02'];
   const selected = '2015-01';
   function onButtonClick(){
-    console.log('done');
+    //console.log('done');
   }
   return shallow(<ButtonGroup dates={dates} selected={selected} onButtonClick={onButtonClick}/>);
 }
