@@ -40,11 +40,11 @@ class HomePage extends React.Component {
   }
 
   afterReRender(category){
-    var _this = this;
+    const _this = this;
     //wait for DOM update
     window.setTimeout(function () {
       window.requestAnimationFrame(() => {_this.updateCategoryActions(category);});
-    }, 0)
+    }, 0);
   }
 
   updateCategoryState(event){
