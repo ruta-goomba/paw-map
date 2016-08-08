@@ -3,6 +3,7 @@ import React from 'react';
 import DataCircles from './DataCircles';
 import DataLine from './DataLine';
 import XYAxis from './XYAxis';
+import LoadingDots from '../common/LoadingDots';
 
 const xRange = function(props){
   const range = [props.padding];
@@ -31,10 +32,12 @@ const marshalProps = (props) => {
   return Object.assign({}, props, scales);
 };
 
+//{(d3Props.loading) ? <LoadingDots/> : null}
 const ScatterPlot = (props) => {
   const d3Props = marshalProps(props);
   return (
     <div className="section__chart--line">
+      {(d3Props.loading) ? <LoadingDots/> : null}
       <svg width={d3Props.width} height={d3Props.height}>
         <DataCircles {...d3Props}/>
         <DataLine {...d3Props}/>

@@ -102,6 +102,7 @@ a.active {
 }
 
 .section__chart--line {
+  position: relative;
   display: inline-block;
   margin-left: 60px;
 }
