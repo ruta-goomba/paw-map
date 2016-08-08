@@ -21,44 +21,18 @@ class HomePage extends React.Component {
     this.state = {
       category: 'violent-crime',
       date: '2016-04',
-      loading: false
+      errors: {}
     };
 
     this.updateCategoryState = this.updateCategoryState.bind(this);
     this.updateDateState = this.updateDateState.bind(this);
-    this.updateLoadState = this.updateLoadState.bind(this);
-    this.updateCategoryActions = this.updateCategoryActions.bind(this);
-    this.afterReRender = this.afterReRender.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if (prevState.category !== this.state.category){
-      this.afterReRender(this.state.category);
-    } else if (prevProps.crime_totals !== this.props.crime_totals){
-      this.updateLoadState();
-    }
-  }
-
-  afterReRender(category){
-    var _this = this;
-    //wait for DOM update
-    window.setTimeout(function () {
-      window.requestAnimationFrame(() => {_this.updateCategoryActions(category);});
-    }, 0)
-  }
-
-  updateCategoryState(event){
-    return this.setState({category: event.target.value, loading: true});
-  }
-
-  updateCategoryActions(category){
-    this.props.actions.loadCrimes(category);
-    this.props.actions.loadCrimeHotSpots(category);
-    this.props.actions.loadCrimeTotals(category);
-  }
-
-  updateLoadState(){
-    return this.setState({loading: false});
+  updateCategoryState(event) {
+    this.props.actions.loadCrimes(event.target.value);
+    this.props.actions.loadCrimeHotSpots(event.target.value);
+    this.props.actions.loadCrimeTotals(event.target.value);
+    return this.setState({category: event.target.value});
   }
 
   updateDateState(event){
@@ -87,7 +61,6 @@ class HomePage extends React.Component {
             points={this.props.crimes}
             date={this.state.date}
             hotspots={this.props.hot_spots}
-            loading={this.state.loading}
           />
         </Section>
         <Section header_content="Total number of crimes of each category committed in the country between 2015 and 2016 (excluding Scotland)">
