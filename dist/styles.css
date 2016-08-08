@@ -68,7 +68,6 @@ a.active {
 
 .section__map {
   display: inline-block;
-  position: relative;
   height: 400px;
   width: 70%;
 }
@@ -104,14 +103,6 @@ a.active {
 .section__chart--line {
   display: inline-block;
   margin-left: 60px;
-}
-
-.section__loading {
-  position: absolute;
-  z-index: 101;
-  font-size: 40px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  margin: 15% 45%;
 }
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
