@@ -8,7 +8,6 @@ const gradient = { '0.1': '#89BDE0', '0.2': '#96E3E6', '0.4': '#82CEB6', '0.6': 
 const default_position = [52.629729, -1.131592];
 const text = '...';
 
-// {loading ? <LoadingDots/> : null}
 const LeafletMap = ({points, date, hotspots, loading}) => {
   return (
     <div className="section__map">
