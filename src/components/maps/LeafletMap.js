@@ -3,12 +3,12 @@ import { Map, TileLayer, Marker} from 'react-leaflet';
 import { divIcon, point } from 'leaflet';
 import HeatmapLayer from 'react-leaflet-heatmap-layer';
 import LoadingDots from '../common/LoadingDots';
+/* eslint-disable react/jsx-no-bind */
 
 const gradient = { '0.1': '#89BDE0', '0.2': '#96E3E6', '0.4': '#82CEB6', '0.6': '#FAF3A5', '0.8': '#F5D98B', '1.0': '#DE9A96'};
 const default_position = [52.629729, -1.131592];
 const text = '...';
 
-// {loading ? <LoadingDots/> : null}
 const LeafletMap = ({points, date, hotspots, loading}) => {
   return (
     <div className="section__map">
