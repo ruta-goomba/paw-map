@@ -32,7 +32,6 @@ const marshalProps = (props) => {
   return Object.assign({}, props, scales);
 };
 
-//{(d3Props.loading) ? <LoadingDots/> : null}
 const ScatterPlot = (props) => {
   const d3Props = marshalProps(props);
   return (
