@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import * as d3 from 'd3';
 
 class Axis extends React.Component {
@@ -20,5 +20,11 @@ class Axis extends React.Component {
     return (<g className="axis" ref="axis" transform={this.props.translate}></g>);
   }
 }
+
+Axis.propTypes = {
+  translate: PropTypes.func,
+  orient: PropTypes.string,
+  scale: PropTypes.string
+};
 
 export default Axis;

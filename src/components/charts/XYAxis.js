@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, {PropTypes}  from 'react';
 import Axis   from './Axis';
 
 const XYAxis = (props) => {
@@ -16,6 +16,13 @@ const XYAxis = (props) => {
     <Axis {...xSettings}/>
     <Axis {...ySettings}/>
   </g>);
+};
+
+XYAxis.propTypes = {
+  height: PropTypes.number,
+  padding: PropTypes.number,
+  xScale: PropTypes.func,
+  yScale: PropTypes.func
 };
 
 export default XYAxis;
