@@ -101,7 +101,12 @@ class HomePage extends React.Component {
           onRadioChange={this.updateCategoryState}
         />
         <LinePlot
-          {...{data: this.props.crime_totals, loading:this.state.loading}}
+          {...
+            {
+            data: this.props.crime_totals,
+            loading:this.state.loading
+            }
+          }
           {...this.state.chart_styles} />
       </div>
     );
