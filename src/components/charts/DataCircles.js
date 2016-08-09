@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+/* eslint-disable react/display-name react/no-multi-comp */
 
 const renderCircles = (props) => {
   return (coords, index) => {
@@ -13,7 +14,13 @@ const renderCircles = (props) => {
 };
 
 const DataCircles = (props) => {
-  return <g>{ props.data.map(renderCircles(props))}</g>;
+  return <g>{props.data.map(renderCircles(props))}</g>;
+};
+
+DataCircles.propTypes = {
+  data: PropTypes.array,
+  xScale: PropTypes.func,
+  yScale: PropTypes.func
 };
 
 export default DataCircles;
