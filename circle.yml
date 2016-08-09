@@ -18,7 +18,7 @@ deployment:
           s3_location:
             bucket: pawmap
             key_pattern: pawmap-{BRANCH}-{SHORT_COMMIT}
-        deployment_group: PawMapGroupStaging
+        deployment_group: WhatheMapStaging
   production:
     branch: master
     codedeploy:
@@ -30,4 +30,4 @@ deployment:
           s3_location:
             bucket: pawmap
             key_pattern: pawmap-{BRANCH}-{SHORT_COMMIT}
-        deployment_group: PawMapGroup
+        deployment_group: WhatheMap

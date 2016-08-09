@@ -8,12 +8,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as crimeActions from '../../actions/crimeActions';
 
-const chartStyles = {
-  width   : 750,
-  height  : 400,
-  padding : 50
-};
-
 class HomePage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -21,7 +15,12 @@ class HomePage extends React.Component {
     this.state = {
       category: 'violent-crime',
       date: '2016-04',
-      loading: false
+      loading: false,
+      chart_styles: {
+        width   : 750,
+        height  : 400,
+        padding : 50
+      }
     };
 
     this.updateCategoryState = this.updateCategoryState.bind(this);
@@ -101,7 +100,14 @@ class HomePage extends React.Component {
           selected={this.state.category}
           onRadioChange={this.updateCategoryState}
         />
-        <LinePlot {...{data: this.props.crime_totals, loading:this.state.loading}} {...chartStyles} />
+        <LinePlot
+          {...
+            {
+            data: this.props.crime_totals,
+            loading:this.state.loading
+            }
+          }
+          {...this.state.chart_styles} />
       </div>
     );
   }
