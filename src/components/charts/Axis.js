@@ -22,9 +22,9 @@ class Axis extends React.Component {
 }
 
 Axis.propTypes = {
-  translate: PropTypes.func,
+  translate: PropTypes.string,
   orient: PropTypes.string,
-  scale: PropTypes.string
+  scale: PropTypes.func
 };
 
 export default Axis;

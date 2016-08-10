@@ -53,6 +53,7 @@ a.active {
 .section__form--radios {
   display: inline-block;
   padding: 0 50px;
+  opacity: 1;
 }
 
 .section__form--radio {
@@ -114,6 +115,73 @@ a.active {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 15% 45%;
 }
+
+.burger-menu {
+  display: none;
+}
+
+.section__content-title {
+  display: none;
+}
+
+@media screen and (max-width: 1130px) {
+  .section__form--radios {
+    padding: 0 20px;
+  }
+
+  .section__chart--line {
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 1030px) {
+  .section__form--radios {
+    position: absolute;
+    background-color: #A0A0A0;
+    opacity: 0;
+    z-index: 102;
+    right: 0;
+    margin-top: 20px;
+  }
+
+  .section__form--radio {
+    padding: 0;
+  }
+
+  .section__form--radio label {
+    font-size: 14px;
+  }
+
+  .section__map {
+    width: 100%;
+  }
+
+  .burger-menu {
+    display: inline-block;
+    position: absolute;
+    font-size: 17px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    z-index: 103;
+    right: 0;
+  }
+
+  .burger-menu a {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .burger-menu a:hover {
+    text-decoration: underline;
+    color: #000000;
+  }
+
+  .section__content-title {
+    display: block;
+    text-align: center;
+  }
+}
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
