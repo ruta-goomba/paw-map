@@ -9,9 +9,9 @@ const gradient = { '0.1': '#89BDE0', '0.2': '#96E3E6', '0.4': '#82CEB6', '0.6': 
 const default_position = [52.629729, -1.131592];
 const text = '...';
 
-const LeafletMap = ({points, date, hotspots, loading}) => {
+const LeafletMap = ({points, date, hotspots, loading, map_styles}) => {
   return (
-    <div className="section__map">
+    <div className="section__map" style={{height:map_styles.height +'px'}}>
       {(loading) ? <LoadingDots/> : null}
       <Map center={[52.629729, -1.131592]} zoom={6}>
         <HeatmapLayer
@@ -39,7 +39,8 @@ LeafletMap.propTypes = {
   date: PropTypes.string.isRequired,
   points: PropTypes.array,
   hotspots: PropTypes.array,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  map_styles: PropTypes.object
 };
 
 export default LeafletMap;
