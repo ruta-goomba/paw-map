@@ -9,7 +9,7 @@ function setup() {
   function onButtonClick(){
     //console.log('done');
   }
-  return shallow(<ButtonGroup dates={dates} selected={selected} onButtonClick={onButtonClick}/>);
+  return shallow(<ButtonGroup values={dates} selected={selected} onButtonClick={onButtonClick}/>);
 }
 
 // TODO - test button clicks
