@@ -38,8 +38,8 @@ const ScatterPlot = (props) => {
     <div className="section__chart--line">
       {(d3Props.loading) ? <LoadingDots/> : null}
       <svg width={d3Props.width} height={d3Props.height}>
-        <DataCircles {...d3Props}/>
-        <DataLine {...d3Props}/>
+        {(d3Props.loading) ? null : <DataCircles {...d3Props}/>}
+        {(d3Props.loading) ? null : <DataLine {...d3Props}/>}
         <XYAxis {...d3Props}/>
       </svg>
     </div>
