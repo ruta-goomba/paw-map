@@ -97,6 +97,10 @@ a.active {
   z-index: 2;
 }
 
+.leaflet-marker-icon, .section__map__marker--crime-hot-spot{
+  z-index: 200 !important;
+}
+
 .section__button-group {
   padding: 10px 60px;
   display: none;
