@@ -17,7 +17,8 @@ class HomePage extends React.Component {
     this.state = {
       category: 'violent-crime',
       date: '2016-04',
-      loading: false,
+      loading_map: false,
+      loading_graph: false,
       burgerMenuOpen: false,
       chart_styles: {
         width   : 750,
@@ -31,7 +32,8 @@ class HomePage extends React.Component {
 
     this.updateCategoryState = this.updateCategoryState.bind(this);
     this.updateDateState = this.updateDateState.bind(this);
-    this.updateLoadState = this.updateLoadState.bind(this);
+    this.updateGraphLoadState = this.updateGraphLoadState.bind(this);
+    this.updateMapLoadState = this.updateMapLoadState.bind(this);
     this.updateCategoryActions = this.updateCategoryActions.bind(this);
     this.afterReRender = this.afterReRender.bind(this);
     this.handleResize = this.handleResize.bind(this);
@@ -45,7 +47,9 @@ class HomePage extends React.Component {
     if (prevState.category !== this.state.category){
       this.afterReRender(this.state.category);
     } else if (prevProps.crime_totals !== this.props.crime_totals){
-      this.updateLoadState();
+      this.updateGraphLoadState();
+    } else if (prevProps.crimes[0] !== this.props.crimes[0]){
+      this.updateMapLoadState();
     }
   }
 
@@ -86,7 +90,8 @@ class HomePage extends React.Component {
   updateCategoryState(event){
     return this.setState({
       category: event.target.value,
-      loading: true
+      loading_graph: true,
+      loading_map: true
     });
   }
 
@@ -96,8 +101,12 @@ class HomePage extends React.Component {
     this.props.actions.loadCrimeTotals(category);
   }
 
-  updateLoadState(){
-    return this.setState({loading: false});
+  updateGraphLoadState(){
+    return this.setState({loading_graph: false});
+  }
+
+  updateMapLoadState(){
+    return this.setState({loading_map: false});
   }
 
   updateDateState(event){
@@ -134,7 +143,7 @@ class HomePage extends React.Component {
             points={this.props.crimes}
             date={this.state.date}
             hotspots={this.props.hot_spots}
-            loading={this.state.loading}
+            loading={this.state.loading_map}
             map_styles={this.state.map_styles}
           />
         </Section>
@@ -161,7 +170,7 @@ class HomePage extends React.Component {
           {...
             {
             data: this.props.crime_totals,
-            loading:this.state.loading
+            loading:this.state.loading_graph
             }
           }
           {...this.state.chart_styles} />
