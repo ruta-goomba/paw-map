@@ -7,7 +7,6 @@ import {GoogleLayer} from 'react-leaflet-google';
 
 /* eslint-disable react/jsx-no-bind */
 
-const gradient = { '0.1': '#89BDE0', '0.2': '#96E3E6', '0.4': '#82CEB6', '0.6': '#FAF3A5', '0.8': '#F5D98B', '1.0': '#DE9A96'};
 const default_position = [52.629729, -1.131592];
 const text = '...';
 
@@ -20,8 +19,11 @@ const LeafletMap = ({points, date, hotspots, loading, map_styles}) => {
           points={points}
           longitudeExtractor={m => m['location'][0]}
           latitudeExtractor={m => m['location'][1]}
-          gradient={gradient}
-          intensityExtractor={m => m['weight']}/>
+          intensityExtractor={m => m['weight']}
+          blur={0.01}
+          radius={0.01}
+          max={(hotspots.length>0) ? hotspots[0]['weight'] : 3}
+        />
         <GoogleLayer googlekey="AIzaSyD1K2OVJWLAZvnNT6Ae_ZOdsE9F_9uTBLY"  type="ROADMAP"/>
         {[0, 1, 2].map(pos =>
           <Marker key={Math.random()}
