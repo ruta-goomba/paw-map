@@ -26,10 +26,14 @@ a.active {
 
 .header__title {
   color: #FFFFFF;
+  text-decoration: none;
   font-size: 60px;
 }
 
-.header__title:hover {
+.header__title:hover,
+.header__title:active,
+.header__title:visited,
+.header__title:link {
   text-decoration: none;
   color: #FFFFFF;
 }
