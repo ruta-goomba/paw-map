@@ -1,21 +1,21 @@
 import React, {PropTypes} from 'react';
 
-const ButtonGroup = ({dates, selected, onButtonClick}) => {
+const ButtonGroup = ({values, selected, onButtonClick}) => {
   return (
     <div className="section__button-group">
-      {dates.map(date =>
-        <button key={date}
-                className={(selected===date) ? 'btn-primary' : 'btn-default'}
+      {values.map(value =>
+        <button key={value}
+                className={(selected===value) ? 'btn-primary' : 'btn-default'}
                 onClick={onButtonClick}
-                value={date}
-        >{date}</button>
+                value={value}
+        >{value.replace(/-/g, ' ')}</button>
       )}
     </div>
   );
 };
 
 ButtonGroup.propTypes = {
-  dates: PropTypes.array.isRequired,
+  values: PropTypes.array.isRequired,
   selected: PropTypes.string,
   onButtonClick: PropTypes.func
 };

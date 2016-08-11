@@ -4,7 +4,7 @@ import Section from '../common/Section';
 import Radios from '../selectors/Radios';
 import LeafletMap from '../maps/LeafletMap';
 import LinePlot from '../charts/LinePlot';
-import BurgerMenu from '../common/BurgerMenu';
+import ButtonGroup from '../selectors/ButtonGroup';
 import Title from '../common/Title';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -35,8 +35,6 @@ class HomePage extends React.Component {
     this.updateCategoryActions = this.updateCategoryActions.bind(this);
     this.afterReRender = this.afterReRender.bind(this);
     this.handleResize = this.handleResize.bind(this);
-    this.toggleBurgerMenu = this.toggleBurgerMenu.bind(this);
-    this.onclickToggleBurgerMenu = this.onclickToggleBurgerMenu.bind(this);
   }
 
   componentDidMount(){
@@ -53,7 +51,6 @@ class HomePage extends React.Component {
 
   handleResize(){
     if (window.innerWidth < 1030) {
-      this.toggleBurgerMenu(0, false);
       this.setState({
         chart_styles: {
           width: window.innerWidth,
@@ -65,7 +62,6 @@ class HomePage extends React.Component {
         }
       });
     } else {
-      this.toggleBurgerMenu(1, true);
       this.setState({
         chart_styles: {
           width   : 750,
@@ -88,7 +84,6 @@ class HomePage extends React.Component {
   }
 
   updateCategoryState(event){
-    if (window.innerWidth < 1030) {this.toggleBurgerMenu(0, false);}
     return this.setState({
       category: event.target.value,
       loading: true
@@ -109,27 +104,6 @@ class HomePage extends React.Component {
     return this.setState({date: event.target.value});
   }
 
-  toggleBurgerMenu(opacity, state){
-    let all_radio_forms = document.getElementsByClassName('section__form--radios');
-    for (let i=0; i<all_radio_forms.length; i++){
-      all_radio_forms[i].style.opacity = opacity;
-    }
-    return this.setState({burgerMenuOpen: state});
-  }
-
-  onclickToggleBurgerMenu(){
-    let all_radio_forms = document.getElementsByClassName('section__form--radios');
-    for (let i=0; i<all_radio_forms.length; i++){
-      if (this.state.burgerMenuOpen) {
-        all_radio_forms[i].style.opacity = 0;
-      } else {
-        all_radio_forms[i].style.opacity = 1;
-      }
-
-    }
-    return this.setState({burgerMenuOpen: !this.state.burgerMenuOpen});
-  }
-
   render(){
     return (
       <div>
@@ -146,13 +120,15 @@ class HomePage extends React.Component {
           <Title
             title={this.state.category}
           />
-          <BurgerMenu
-            toggleMenu={this.onclickToggleBurgerMenu}
-          />
           <Radios
             categories={this.props.crime_categories}
             selected={this.state.category}
             onRadioChange={this.updateCategoryState}
+          />
+          <ButtonGroup
+            values={this.props.crime_categories}
+            selected={this.state.category}
+            onButtonClick={this.updateCategoryState}
           />
           <LeafletMap
             points={this.props.crimes}
@@ -171,13 +147,15 @@ class HomePage extends React.Component {
         <Title
           title={this.state.category}
         />
-        <BurgerMenu
-          toggleMenu={this.onclickToggleBurgerMenu}
-        />
         <Radios
           categories={this.props.crime_categories}
           selected={this.state.category}
           onRadioChange={this.updateCategoryState}
+        />
+        <ButtonGroup
+          values={this.props.crime_categories}
+          selected={this.state.category}
+          onButtonClick={this.updateCategoryState}
         />
         <LinePlot
           {...
