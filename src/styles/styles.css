@@ -54,13 +54,13 @@ a.active {
   color: #FFFFFF;
 }
 
-.section__form--radios {
+.section__form--radios, .section__form--checkboxes {
   display: inline-block;
   padding: 0 50px;
   opacity: 1;
 }
 
-.section__form--radio {
+.section__form--radio, .section__form--checkbox {
   padding: 3px 10px;
 }
 
@@ -133,6 +133,15 @@ a.active {
 
 .section__content-title {
   display: none;
+}
+
+.rv-xy-plot {
+  display: inline-block;
+}
+
+.rv-xy-plot__inner {
+  padding-left: 50px;
+  overflow: visible !important;
 }
 
 @media screen and (max-width: 1130px) {

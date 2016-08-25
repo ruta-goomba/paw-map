@@ -28,7 +28,7 @@ var find_total_crimes_for_each_date_in_category = function(heatmap, callback){
           total_crimes += parsedData[i]['weight'];
         }
         console.log(total_crimes + ' ' + date + ' ' + heatmap);
-        total_crimes_array.push([date, total_crimes]);
+        total_crimes_array.push({x:date, y:total_crimes});
         total_crimes = 0;
         cb();
       });

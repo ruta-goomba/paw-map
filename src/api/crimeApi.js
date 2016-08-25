@@ -141,67 +141,20 @@ class CrimeApi {
     });
   }
 
-  static getCrimeTotals(crime) {
+  static getCrimeTotals() {
     return new Promise((resolve, reject) => {
       try {
-        // a long and horrible chain of if statements since dynamic loading produced memory leaks
-        if (crime === 'violent-crime'){
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/violent-crime_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'anti-social-behaviour') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/anti-social-behaviour_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'public-order'){
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/public-order_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'vehicle-crime') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/vehicle-crime_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'drugs') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/drugs_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'possession-of-weapons') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/possession-of-weapons_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'theft-from-the-person') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/theft-from-the-person_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'shoplifting') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/shoplifting_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'robbery') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/robbery_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'burglary') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/burglary_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'bicycle-theft') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/bicycle-theft_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'other-theft') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/other-theft_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'criminal-damage-arson') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/criminal-damage-arson_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        } else if (crime === 'other-crime') {
-          System.import('../../helpers/create_crime_grid/json/uk/crimes/other-crime_total_crimes.json').then(crimes => {
-            resolve(crimes);
-          });
-        }
+        System.import('../../helpers/create_crime_grid/json/uk/crimes/total_crimes.json').then(crimes => {
+          for (let key in crimes) {
+            for (let i = 1; i < crimes[key].length; i++) {
+              let label = crimes[key][i]['x'];
+              if (label.substr(label.length - 2) !== '01') {
+                crimes[key][i]['x'] = label.substr(label.length - 2);
+              }
+            }
+          }
+          resolve(crimes);
+        });
       } catch (err) {
         reject(err);
       }
@@ -224,18 +177,6 @@ class CrimeApi {
     return new Promise((resolve, reject) => {
       try {
         System.import('../../helpers/create_crime_grid/json/uk/dates/2016-04/selected_crimes/violent-crime_top_spots.json').then(crimes => {
-          resolve(crimes);
-        });
-      } catch (err) {
-        reject(err);
-      }
-    });
-  }
-
-  static getCrimeTotalsInitial() {
-    return new Promise((resolve, reject) => {
-      try {
-        System.import('../../helpers/create_crime_grid/json/uk/crimes/violent-crime_total_crimes.json').then(crimes => {
           resolve(crimes);
         });
       } catch (err) {
