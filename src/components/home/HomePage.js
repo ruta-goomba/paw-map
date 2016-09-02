@@ -2,8 +2,9 @@ import React, {PropTypes} from 'react';
 import Info from '../common/Info';
 import Section from '../common/Section';
 import Radios from '../selectors/Radios';
+import Checkboxes from '../selectors/Checkboxes';
 import LeafletMap from '../maps/LeafletMap';
-import LinePlot from '../charts/LinePlot';
+import StackedBarPlot from '../charts/StackedBarPlot';
 import ButtonGroup from '../selectors/ButtonGroup';
 import Title from '../common/Title';
 import {connect} from 'react-redux';
@@ -17,6 +18,9 @@ class HomePage extends React.Component {
     this.state = {
       category: 'violent-crime',
       date: '2016-04',
+      selected: [
+        'violent-crime'
+      ],
       loading_map: false,
       loading_graph: false,
       burgerMenuOpen: false,
@@ -30,7 +34,8 @@ class HomePage extends React.Component {
       }
     };
 
-    this.updateCategoryState = this.updateCategoryState.bind(this);
+    this.updateMapCategoryState = this.updateMapCategoryState.bind(this);
+    this.updateChartCategoryState = this.updateChartCategoryState.bind(this);
     this.updateDateState = this.updateDateState.bind(this);
     this.updateGraphLoadState = this.updateGraphLoadState.bind(this);
     this.updateMapLoadState = this.updateMapLoadState.bind(this);
@@ -87,11 +92,21 @@ class HomePage extends React.Component {
     }, 0);
   }
 
-  updateCategoryState(event){
+  updateMapCategoryState(event){
     return this.setState({
       category: event.target.value,
-      loading_graph: true,
       loading_map: true
+    });
+  }
+
+  updateChartCategoryState(event){
+    let selected = this.state.selected;
+    (this.state.selected.indexOf(event.target.value) > -1) ?
+      selected.splice(selected.indexOf(event.target.value), 1) :
+      selected.push(event.target.value);
+    return this.setState({
+      selected: selected,
+      loading_graph: true
     });
   }
 
@@ -132,12 +147,12 @@ class HomePage extends React.Component {
           <Radios
             categories={this.props.crime_categories}
             selected={this.state.category}
-            onRadioChange={this.updateCategoryState}
+            onRadioChange={this.updateMapCategoryState}
           />
           <ButtonGroup
             values={this.props.crime_categories}
             selected={this.state.category}
-            onButtonClick={this.updateCategoryState}
+            onButtonClick={this.updateMapCategoryState}
           />
           <LeafletMap
             points={this.props.crimes}
@@ -153,24 +168,22 @@ class HomePage extends React.Component {
             committed on monthly basis for the time period between March 2015 and May 2016"
           />
         </Section>
-        <Title
-          title={this.state.category}
-        />
-        <Radios
+        <Checkboxes
           categories={this.props.crime_categories}
-          selected={this.state.category}
-          onRadioChange={this.updateCategoryState}
+          selected={this.state.selected}
+          onCheckboxChange={this.updateChartCategoryState}
         />
         <ButtonGroup
           values={this.props.crime_categories}
-          selected={this.state.category}
-          onButtonClick={this.updateCategoryState}
+          selectedGroup={this.state.selected}
+          onButtonClick={this.updateChartCategoryState}
         />
-        <LinePlot
+        <StackedBarPlot
           {...
             {
-            data: this.props.crime_totals,
-            loading:this.state.loading_graph
+              data: this.props.crime_totals,
+              current_data: this.state.selected,
+              loading:this.state.loading_graph
             }
           }
           {...this.state.chart_styles} />
@@ -183,7 +196,7 @@ HomePage.propTypes = {
   crimes: PropTypes.array.isRequired,
   crime_categories: PropTypes.array.isRequired,
   crime_dates: PropTypes.array.isRequired,
-  crime_totals: PropTypes.array,
+  crime_totals: PropTypes.object,
   category: PropTypes.string,
   hot_spots: PropTypes.array,
   actions: PropTypes.object.isRequired
