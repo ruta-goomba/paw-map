@@ -54,13 +54,13 @@ a.active {
   color: #FFFFFF;
 }
 
-.section__form--radios {
+.section__form--radios, .section__form--checkboxes {
   display: inline-block;
   padding: 0 50px;
   opacity: 1;
 }
 
-.section__form--radio {
+.section__form--radio, .section__form--checkbox {
   padding: 3px 10px;
 }
 
@@ -135,6 +135,15 @@ a.active {
   display: none;
 }
 
+.rv-xy-plot {
+  display: inline-block;
+}
+
+.rv-xy-plot__inner {
+  padding-left: 50px;
+  overflow: visible !important;
+}
+
 @media screen and (max-width: 1130px) {
   .section__form--radios {
     padding: 0 20px;
@@ -146,7 +155,7 @@ a.active {
 }
 
 @media screen and (max-width: 1030px) {
-  .section__form--radios {
+  .section__form--radios, .section__form--checkboxes {
     display: none;
   }
 
@@ -161,6 +170,10 @@ a.active {
 
   .section__button-group {
     display: inline-block;
+  }
+
+  .rv-xy-plot__inner {
+    padding-left: 35px;
   }
 }
 
