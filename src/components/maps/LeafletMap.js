@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import GoogleMap from 'google-map-react';
 import LoadingDots from '../common/LoadingDots';
+import MapMarker from './MapMarker';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -17,15 +18,22 @@ const LeafletMap = ({points, date, hotspots, loading, map_styles}) => {
         defaultZoom={6}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({map, maps}) => {
-          console.log(points[0]);
           const heatmap = new maps.visualization.HeatmapLayer({
             data: points.map(point => (
-              {location: new google.maps.LatLng(point['location'][1], point['location'][0]),
+              {location: new maps.LatLng(point['location'][1], point['location'][0]),
               weight: point['weight']}))
           });
           heatmap.setMap(map);
         }}
-      ></GoogleMap>
+      >
+        {[0, 1, 2].map(pos =>
+          <MapMarker
+            key={pos}
+            lat={(hotspots.length>0) ? hotspots[pos]['location'][1] : '52.629729'}
+            lng={(hotspots.length>0) ? hotspots[pos]['location'][0] : '-1.131592'}
+            text={(hotspots.length>0)  ? (hotspots[pos]['weight']).toString() : text}
+        />)}
+      </GoogleMap>
     </div>
   );
 };
