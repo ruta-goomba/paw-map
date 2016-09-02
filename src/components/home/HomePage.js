@@ -62,7 +62,7 @@ class HomePage extends React.Component {
     if (window.innerWidth < 1030) {
       this.setState({
         chart_styles: {
-          width: window.innerWidth,
+          width: window.innerWidth-40,
           height: 0.618 * window.innerWidth,
           padding : 50
         },

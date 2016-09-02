@@ -155,7 +155,7 @@ a.active {
 }
 
 @media screen and (max-width: 1030px) {
-  .section__form--radios {
+  .section__form--radios, .section__form--checkboxes {
     display: none;
   }
 
@@ -170,6 +170,10 @@ a.active {
 
   .section__button-group {
     display: inline-block;
+  }
+
+  .rv-xy-plot__inner {
+    padding-left: 35px;
   }
 }
 
