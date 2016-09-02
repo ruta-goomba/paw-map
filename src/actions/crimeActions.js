@@ -21,9 +21,9 @@ export function loadCrimeHotSpots(category){
   };
 }
 
-export function loadCrimeTotals(category){
+export function loadCrimeTotals(){
   return function (dispatch) {
-    return crimeApi.getCrimeTotals(category).then(totals => {
+    return crimeApi.getCrimeTotals().then(totals => {
       dispatch(loadCrimeTotalsSuccess(totals));
     }).catch(error => {
       throw(error);
@@ -45,16 +45,6 @@ export function loadCrimeHotSpotsInitial(){
   return function (dispatch) {
     return crimeApi.getCrimeHotSpotsInitial().then(crimes => {
       dispatch(loadCrimeHotSpotsInitialSuccess(crimes));
-    }).catch(error => {
-      throw(error);
-    });
-  };
-}
-
-export function loadCrimeTotalsInitial(){
-  return function (dispatch) {
-    return crimeApi.getCrimeTotalsInitial().then(totals => {
-      dispatch(loadCrimeTotalsInitialSuccess(totals));
     }).catch(error => {
       throw(error);
     });
@@ -83,10 +73,6 @@ export function loadCrimeDates(){
 
 export function loadCrimeTotalsSuccess(totals) {
   return { type: types.LOAD_CRIME_TOTALS_SUCCESS, totals};
-}
-
-export function loadCrimeTotalsInitialSuccess(totals) {
-  return { type: types.LOAD_CRIME_TOTALS_INITIAL_SUCCESS, totals};
 }
 
 export function loadCrimesSuccess(crimes) {

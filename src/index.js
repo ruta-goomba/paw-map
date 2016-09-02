@@ -7,7 +7,7 @@ import configureStore from './store/configureStore.dev';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import {loadCrimesInitial, loadCrimeCategories,
-  loadCrimeDates, loadCrimeHotSpotsInitial, loadCrimeTotalsInitial} from './actions/crimeActions';
+  loadCrimeDates, loadCrimeHotSpotsInitial, loadCrimeTotals} from './actions/crimeActions';
 import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +16,7 @@ store.dispatch(loadCrimesInitial());
 store.dispatch(loadCrimeCategories());
 store.dispatch(loadCrimeDates());
 store.dispatch(loadCrimeHotSpotsInitial());
-store.dispatch(loadCrimeTotalsInitial());
+store.dispatch(loadCrimeTotals());
 
 render(
   <Provider store={store}>
