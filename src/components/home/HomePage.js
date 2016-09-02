@@ -19,9 +19,7 @@ class HomePage extends React.Component {
       category: 'violent-crime',
       date: '2016-04',
       selected: [
-        'violent-crime', 'anti-social-behaviour', 'public-order', 'vehicle-crime', 'drugs',
-        'possession-of-weapons', 'theft-from-the-person', 'shoplifting', 'robbery', 'burglary',
-        'bicycle-theft', 'other-theft', 'criminal-damage-arson', 'other-crime'
+        'violent-crime'
       ],
       loading_map: false,
       loading_graph: false,
@@ -36,7 +34,8 @@ class HomePage extends React.Component {
       }
     };
 
-    this.updateCategoryState = this.updateCategoryState.bind(this);
+    this.updateMapCategoryState = this.updateMapCategoryState.bind(this);
+    this.updateChartCategoryState = this.updateChartCategoryState.bind(this);
     this.updateDateState = this.updateDateState.bind(this);
     this.updateGraphLoadState = this.updateGraphLoadState.bind(this);
     this.updateMapLoadState = this.updateMapLoadState.bind(this);
@@ -93,16 +92,21 @@ class HomePage extends React.Component {
     }, 0);
   }
 
-  updateCategoryState(event){
+  updateMapCategoryState(event){
+    return this.setState({
+      category: event.target.value,
+      loading_map: true
+    });
+  }
+
+  updateChartCategoryState(event){
     let selected = this.state.selected;
     (this.state.selected.indexOf(event.target.value) > -1) ?
       selected.splice(selected.indexOf(event.target.value), 1) :
       selected.push(event.target.value);
     return this.setState({
-      category: event.target.value,
       selected: selected,
-      loading_graph: true,
-      loading_map: true
+      loading_graph: true
     });
   }
 
@@ -143,12 +147,12 @@ class HomePage extends React.Component {
           <Radios
             categories={this.props.crime_categories}
             selected={this.state.category}
-            onRadioChange={this.updateCategoryState}
+            onRadioChange={this.updateMapCategoryState}
           />
           <ButtonGroup
             values={this.props.crime_categories}
             selected={this.state.category}
-            onButtonClick={this.updateCategoryState}
+            onButtonClick={this.updateMapCategoryState}
           />
           <LeafletMap
             points={this.props.crimes}
@@ -164,18 +168,15 @@ class HomePage extends React.Component {
             committed on monthly basis for the time period between March 2015 and May 2016"
           />
         </Section>
-        <Title
-          title={this.state.category}
-        />
         <Checkboxes
           categories={this.props.crime_categories}
           selected={this.state.selected}
-          onCheckboxChange={this.updateCategoryState}
+          onCheckboxChange={this.updateChartCategoryState}
         />
         <ButtonGroup
           values={this.props.crime_categories}
-          selected={this.state.category}
-          onButtonClick={this.updateCategoryState}
+          selectedGroup={this.state.selected}
+          onButtonClick={this.updateChartCategoryState}
         />
         <StackedBarPlot
           {...

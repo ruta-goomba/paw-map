@@ -4,7 +4,10 @@ const crime_categories = [
   'possession-of-weapons', 'theft-from-the-person', 'shoplifting', 'robbery', 'burglary',
   'bicycle-theft', 'other-theft', 'criminal-damage-arson', 'other-crime'
 ];
-const crime_dates = ['2015-05','2015-06', '2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02', '2016-03', '2016-04'];
+const crime_dates = [
+  '2015-03', '2015-04', '2015-05','2015-06', '2015-07', '2015-08',
+  '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02', '2016-03',
+  '2016-04', '2016-05'];
 
 class CrimeApi {
   static getCrimes(crime) {
@@ -148,8 +151,8 @@ class CrimeApi {
           for (let key in crimes) {
             for (let i = 1; i < crimes[key].length; i++) {
               let label = crimes[key][i]['x'];
-              if (label.substr(label.length - 2) !== '01') {
-                crimes[key][i]['x'] = label.substr(label.length - 2);
+              if (label.substr(label.length - 2) !== '01'){
+                crimes[key][i]['x'] = label.substr(label.length - 5);
               }
             }
           }
