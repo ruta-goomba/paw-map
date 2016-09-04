@@ -3,7 +3,7 @@ import Info from '../common/Info';
 import Section from '../common/Section';
 import Radios from '../selectors/Radios';
 import Checkboxes from '../selectors/Checkboxes';
-import LeafletMap from '../maps/LeafletMap';
+import GMap from '../maps/GoogleMap';
 import StackedBarPlot from '../charts/StackedBarPlot';
 import ButtonGroup from '../selectors/ButtonGroup';
 import Title from '../common/Title';
@@ -154,7 +154,7 @@ class HomePage extends React.Component {
             selected={this.state.category}
             onButtonClick={this.updateMapCategoryState}
           />
-          <LeafletMap
+          <GMap
             points={this.props.crimes}
             date={this.state.date}
             hotspots={this.props.hot_spots}
