@@ -8,7 +8,6 @@ import MapMarker from './MapMarker';
 const default_position = {lat: 52.629729, lng: -1.131592};
 const text = '...';
 let markers = [];
-//googlekey="AIzaSyD1K2OVJWLAZvnNT6Ae_ZOdsE9F_9uTBLY"
 
 class GMap extends React.Component {
   constructor(props, context) {
@@ -65,6 +64,10 @@ class GMap extends React.Component {
       <div className="section__map" style={{height:this.props.map_styles.height +'px'}}>
         {(this.props.loading) ? <LoadingDots/> : null}
         <GoogleMap
+          bootstrapURLKeys={{
+            key: 'AIzaSyD1K2OVJWLAZvnNT6Ae_ZOdsE9F_9uTBLY',
+            language: 'en'
+          }}
           defaultCenter={default_position}
           defaultZoom={6}
           yesIWantToUseGoogleMapApiInternals
