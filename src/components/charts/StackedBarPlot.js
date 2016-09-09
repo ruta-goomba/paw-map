@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {
   XYPlot,
   XAxis,
@@ -7,37 +7,43 @@ import {
   HorizontalGridLines,
   VerticalBarSeries} from 'react-vis';
 
-function processData(props){
-  let data = Object.assign({}, props.data);
-  if (Object.keys(props.data).length !== props.current_data.length){
-    for (let key in data){
-      if (props.current_data.indexOf(key) === -1){
-        delete data[key];
+function processData(data, current_data){
+  let d = Object.assign({}, data);
+  if (Object.keys(data).length !== current_data.length){
+    for (let key in d){
+      if (current_data.indexOf(key) === -1){
+        delete d[key];
       }
     }
   }
-  return data;
+  return d;
 }
 
-const StackedBarPlot = (props) => {
-  let data = processData(props);
+const StackedBarPlot = ({data, current_data, chart_styles}) => {
+  let d = processData(data, current_data);
   return (
     <XYPlot
       xType="ordinal"
-      width={props.width}
-      height={props.height}
+      width={chart_styles.width}
+      height={chart_styles.height}
       stackBy="y">
       <VerticalGridLines />
       <HorizontalGridLines />
       <XAxis />
       <YAxis />
-      {props.current_data.map(category =>
+      {current_data.map(category =>
         <VerticalBarSeries
           key={category}
-          data={data[category]}/>
+          data={d[category]}/>
       )}
     </XYPlot>
   )
+};
+
+StackedBarPlot.propTypes = {
+  data: PropTypes.object.isRequired,
+  current_data: PropTypes.array.isRequired,
+  chart_styles: PropTypes.object.isRequired
 };
 
 export default StackedBarPlot;

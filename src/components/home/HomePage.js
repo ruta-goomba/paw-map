@@ -179,14 +179,10 @@ class HomePage extends React.Component {
           onButtonClick={this.updateChartCategoryState}
         />
         <StackedBarPlot
-          {...
-            {
-              data: this.props.crime_totals,
-              current_data: this.state.selected,
-              loading:this.state.loading_graph
-            }
-          }
-          {...this.state.chart_styles} />
+          data={this.props.crime_totals}
+          current_data={this.state.selected}
+          chart_styles={this.state.chart_styles}
+        />
       </div>
     );
   }

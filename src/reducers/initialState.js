@@ -4,5 +4,5 @@ export default {
   crime_dates: [],
   category: 'violent-crime',
   spots: [],
-  crime_totals: []
+  crime_totals: {}
 };
