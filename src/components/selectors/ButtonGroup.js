@@ -32,7 +32,7 @@ ButtonGroup.propTypes = {
   values: PropTypes.array.isRequired,
   selected: PropTypes.string,
   selectedGroup: PropTypes.array,
-  onButtonClick: PropTypes.func
+  onButtonClick: PropTypes.func.isRequired
 };
 
 export default ButtonGroup;
