@@ -37,7 +37,7 @@ const StackedBarPlot = ({data, current_data, chart_styles}) => {
           data={d[category]}/>
       )}
     </XYPlot>
-  )
+  );
 };
 
 StackedBarPlot.propTypes = {
