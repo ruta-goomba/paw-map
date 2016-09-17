@@ -13,6 +13,7 @@ it( 'renders Radios component', () => {
   // Tests
   expect(wrapper.find('form').children().length).toBe(2);
   expect(wrapper.find('form').children().at(1).text()).toEqual('comp second');
+  expect(onRadioChange.calledOnce).toEqual(false);
   expect(wrapper.find('.section__form--radio').at(1).children().at(0).simulate('change'));
   expect(onRadioChange.calledOnce).toEqual(true);
 });
