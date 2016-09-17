@@ -28,7 +28,7 @@ class LoadingDots extends React.Component {
     }
     return (
       <div className="section__loading">
-        <span {...this.props}>{text}&nbsp;</span>
+        <span {...this.props}>{text}</span>
       </div>
     );
   }
