@@ -156,7 +156,6 @@ class HomePage extends React.Component {
           />
           <GMap
             points={this.props.crimes}
-            date={this.state.date}
             hotspots={this.props.hot_spots}
             loading={this.state.loading_map}
             map_styles={this.state.map_styles}

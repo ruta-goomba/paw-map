@@ -90,11 +90,10 @@ class GMap extends React.Component {
 }
 
 GMap.propTypes = {
-  date: PropTypes.string.isRequired,
   points: PropTypes.array,
   hotspots: PropTypes.array,
   loading: PropTypes.bool,
-  map_styles: PropTypes.object
+  map_styles: PropTypes.object.isRequired
 };
 
 export default GMap;
