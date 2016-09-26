@@ -16,7 +16,7 @@ function setup(){
   ];
   const map_styles = {
     height: 300
-  }
+  };
   return mount(<GMap points={points} hotspots={hotspots} map_styles={map_styles}/>);
 }
 
