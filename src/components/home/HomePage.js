@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as crimeActions from '../../actions/crimeActions';
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -166,22 +166,22 @@ class HomePage extends React.Component {
             text="Select the crime category to see the total number of crimes
             committed on monthly basis for the time period between March 2015 and May 2016"
           />
+          <Checkboxes
+            categories={this.props.crime_categories}
+            selected={this.state.selected}
+            onCheckboxChange={this.updateChartCategoryState}
+          />
+          <ButtonGroup
+            values={this.props.crime_categories}
+            selectedGroup={this.state.selected}
+            onButtonClick={this.updateChartCategoryState}
+          />
+          <StackedBarPlot
+            data={this.props.crime_totals}
+            current_data={this.state.selected}
+            chart_styles={this.state.chart_styles}
+          />
         </Section>
-        <Checkboxes
-          categories={this.props.crime_categories}
-          selected={this.state.selected}
-          onCheckboxChange={this.updateChartCategoryState}
-        />
-        <ButtonGroup
-          values={this.props.crime_categories}
-          selectedGroup={this.state.selected}
-          onButtonClick={this.updateChartCategoryState}
-        />
-        <StackedBarPlot
-          data={this.props.crime_totals}
-          current_data={this.state.selected}
-          chart_styles={this.state.chart_styles}
-        />
       </div>
     );
   }
@@ -190,7 +190,6 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
   crimes: PropTypes.array.isRequired,
   crime_categories: PropTypes.array.isRequired,
-  crime_dates: PropTypes.array.isRequired,
   crime_totals: PropTypes.object,
   category: PropTypes.string,
   hot_spots: PropTypes.array,
@@ -201,7 +200,6 @@ function mapStateToProps(state, ownProps) {
   return {
     crimes: state.crimes,
     crime_categories: state.crime_categories,
-    crime_dates: state.crime_dates,
     crime_totals: state.crime_totals,
     category: state.category,
     hot_spots: state.spots
