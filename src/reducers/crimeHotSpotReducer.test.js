@@ -10,7 +10,7 @@ describe('Crime Hot Spot Reducer', () => {
       {location: ['-8.11', '54.48'], weight:2},
       {location: ['-9.11', '53.27'], weight:1},
       {location: ['-8.79', '54.98'], weight:5}
-    ]
+    ];
     const action = actions.loadCrimeHotSpotsInitialSuccess(newCrimeHotSpots);
 
     //act
@@ -27,7 +27,7 @@ describe('Crime Hot Spot Reducer', () => {
       {location: ['-8.11', '54.48'], weight:2},
       {location: ['-9.11', '53.27'], weight:1},
       {location: ['-8.79', '54.98'], weight:5}
-    ]
+    ];
     const action = actions.loadCrimeHotSpotsSuccess(newCrimeHotSpots);
 
     //act
